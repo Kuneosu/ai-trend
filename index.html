@@ -495,7 +495,10 @@ function renderArticle(article) {
       <p class="article-summary">${escapeHtml(article.summary || '')}</p>
       <div class="article-detail">
         <div class="importance"><strong>왜 중요한가</strong>${formatImportance(article.importance || '정보 없음')}</div>
-        ${article.source_url ? `<div class="source">출처: <a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">${escapeHtml(article.source || '원문')} →</a></div>` : (article.source ? `<div class="source">출처: ${escapeHtml(article.source)}</div>` : '')}
+        <div class="source">
+          ${article.source_url ? `출처: <a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">${escapeHtml(article.source || '원문')} →</a>` : (article.source ? `출처: ${escapeHtml(article.source)}` : '')}
+          ${article.via_url ? ` · <a href="${escapeHtml(article.via_url)}" target="_blank" rel="noopener">via ${article.via_url.includes('hada.io') ? 'GeekNews' : article.via_url.includes('news.ycombinator') ? 'HackerNews' : '경유'} →</a>` : ''}
+        </div>
       </div>
     </div>`;
 }
