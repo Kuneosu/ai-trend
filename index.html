@@ -9,361 +9,88 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; color: #333; background: #fff; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { color: #333; text-decoration: none; }
+a:hover { color: #2563eb; }
 
-:root {
-  --sidebar-w: 240px;
-  --max-content: 800px;
-  --blue: #2563eb;
-  --bg: #f9fafb;
-  --white: #fff;
-}
-
-body {
-  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-  background: var(--bg);
-  color: #111;
-  line-height: 1.5;
-}
+.layout { display: flex; min-height: 100vh; }
 
 /* ── Sidebar ── */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0;
-  width: var(--sidebar-w);
-  height: 100vh;
-  background: var(--white);
-  border-right: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-  overflow-y: auto;
-}
+.sidebar { width: 240px; background: #fafafa; border-right: 1px solid #eee; padding: 32px 20px; flex-shrink: 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; z-index: 100; }
+.sidebar-title { font-size: 14px; font-weight: 800; color: #111; letter-spacing: 1px; margin-bottom: 4px; }
+.sidebar-tagline { font-size: 11px; color: #999; margin-bottom: 24px; }
 
-.sidebar-header {
-  padding: 28px 20px 16px;
-  border-bottom: 1px solid #f3f4f6;
-}
+.nav-section { margin-bottom: 24px; }
+.nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #bbb; margin-bottom: 8px; }
+.nav-list { list-style: none; }
+.nav-list li { margin-bottom: 2px; }
+.nav-list li a,
+.nav-list li button { display: block; font-size: 13px; color: #666; padding: 4px 10px; border-radius: 4px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: inherit; line-height: 1.7; }
+.nav-list li a:hover,
+.nav-list li button:hover { background: #f0f0f0; color: #333; }
+.nav-list li a.active,
+.nav-list li button.active { background: #e8f0fe; color: #2563eb; font-weight: 500; }
+.nav-count { font-size: 11px; color: #ccc; float: right; }
 
-.sidebar-logo {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--blue);
-}
+.sidebar-footer { font-size: 11px; color: #ccc; margin-top: auto; padding-top: 16px; border-top: 1px solid #eee; }
 
-.sidebar-tagline {
-  font-size: 13px;
-  color: #999;
-  margin-top: 4px;
-}
+/* ── Main content ── */
+.main { flex: 1; margin-left: 240px; padding: 32px 40px; max-width: 960px; }
 
-.sidebar-schedule {
-  font-size: 11px;
-  color: #bbb;
-  margin-top: 4px;
-}
+.page-header { margin-bottom: 32px; }
+.page-title { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 4px; }
+.page-date { font-size: 13px; color: #999; }
 
-.sidebar-nav {
-  padding: 12px 0;
-  flex: 1;
-}
+/* ── Article card ── */
+.article { margin-bottom: 24px; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px; background: #fff; }
+.article:hover { border-color: #e0e0e0; }
 
-.nav-item {
-  display: flex;
-  align-items: center;
-  padding: 9px 20px;
-  font-size: 14px;
-  color: #555;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  font-family: inherit;
-}
+.article-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.tag { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 3px; }
+.date { font-size: 11px; color: #ccc; }
 
-.nav-item:hover { background: #f3f4f6; color: #111; }
-.nav-item.active { background: #eff6ff; color: var(--blue); font-weight: 600; }
+.article-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.article-title { font-size: 16px; font-weight: 700; color: #111; line-height: 1.4; cursor: pointer; flex: 1; }
+.article-title:hover { color: #2563eb; }
 
-.nav-item .nav-icon { margin-right: 8px; font-size: 15px; }
+.bookmark-btn { background: none; border: none; font-size: 12px; color: #ccc; cursor: pointer; padding: 2px 6px; white-space: nowrap; flex-shrink: 0; }
+.bookmark-btn:hover { color: #2563eb; }
+.bookmark-btn.active { color: #2563eb; }
 
-.nav-divider {
-  height: 1px;
-  background: #f3f4f6;
-  margin: 8px 20px;
-}
+.article-summary { font-size: 14px; color: #666; margin-bottom: 0; line-height: 1.6; }
 
-.nav-section-label {
-  padding: 8px 20px 4px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #bbb;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
+/* ── Accordion importance ── */
+.article-detail { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.article.expanded .article-detail { max-height: 500px; }
 
-.sidebar-footer {
-  padding: 16px 20px;
-  border-top: 1px solid #f3f4f6;
-  font-size: 11px;
-  color: #ccc;
-  line-height: 1.6;
-}
+.importance { font-size: 13px; color: #777; background: #fafafa; padding: 8px 12px; border-left: 3px solid #e5e5e5; border-radius: 0 4px 4px 0; margin-top: 10px; margin-bottom: 8px; }
+.importance strong { font-weight: 600; color: #444; }
 
-/* ── Main ── */
-.main {
-  margin-left: var(--sidebar-w);
-  min-height: 100vh;
-  padding: 32px 40px;
-}
-
-.main-inner {
-  max-width: var(--max-content);
-  margin: 0 auto;
-}
-
-/* ── Header ── */
-.content-header {
-  margin-bottom: 28px;
-}
-
-.content-date {
-  font-size: 14px;
-  color: #999;
-}
-
-.content-count {
-  font-size: 13px;
-  color: #bbb;
-  margin-top: 2px;
-}
+.source { font-size: 12px; color: #bbb; margin-top: 6px; }
+.source a { color: #bbb; }
+.source a:hover { color: #2563eb; }
 
 /* ── Loading / Error ── */
-.loading {
-  text-align: center;
-  padding: 60px 0;
-  color: #999;
-  font-size: 14px;
-}
-
-.loading-spinner {
-  display: inline-block;
-  width: 24px; height: 24px;
-  border: 2.5px solid #e5e7eb;
-  border-top-color: var(--blue);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  margin-bottom: 12px;
-}
-
+.loading { text-align: center; padding: 60px 0; color: #999; font-size: 14px; }
+.loading-spinner { display: inline-block; width: 24px; height: 24px; border: 2.5px solid #e5e7eb; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.7s linear infinite; margin-bottom: 12px; }
 @keyframes spin { to { transform: rotate(360deg); } }
+.error-msg { text-align: center; padding: 60px 20px; color: #999; font-size: 14px; }
+.empty-state { text-align: center; padding: 48px 20px; color: #bbb; font-size: 14px; }
 
-.error-msg {
-  text-align: center;
-  padding: 60px 20px;
-  color: #999;
-  font-size: 14px;
-}
+/* ── Footer ── */
+.main-footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #ccc; }
 
-.error-msg span { font-size: 32px; display: block; margin-bottom: 12px; }
-
-/* ── Top News Section ── */
-.top-news-section {
-  margin-bottom: 24px;
-}
-
-.top-news-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--blue);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* ── Article Card ── */
-.article {
-  background: var(--white);
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  transition: box-shadow 0.15s, border-color 0.15s;
-  overflow: hidden;
-}
-
-.article:hover {
-  border-color: #d1d5db;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-}
-
-.article.is-top {
-  border-left: 3px solid var(--blue);
-  background: #fafbff;
-}
-
-.article-header {
-  padding: 14px 16px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  user-select: none;
-}
-
-.article-row1 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.tag-pill {
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 500;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.tag-모델출시, .tag-모델-출시 { background: #dbeafe; color: #1d4ed8; }
-.tag-개발도구, .tag-개발-도구 { background: #dcfce7; color: #166534; }
-.tag-AI연구, .tag-ai-연구 { background: #f3e8ff; color: #7c3aed; }
-.tag-개발문화, .tag-개발-문화 { background: #fff7ed; color: #c2410c; }
-.tag-규제정책, .tag-규제·정책 { background: #fef2f2; color: #dc2626; }
-
-.article-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #111;
-  flex: 1;
-  line-height: 1.4;
-}
-
-.article-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.article-source, .article-date {
-  font-size: 13px;
-  color: #999;
-  white-space: nowrap;
-}
-
-.bookmark-btn {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 2px 4px;
-  opacity: 0.35;
-  transition: opacity 0.15s, transform 0.15s;
-  line-height: 1;
-}
-
-.bookmark-btn:hover { opacity: 0.7; transform: scale(1.1); }
-.bookmark-btn.active { opacity: 1; color: var(--blue); }
-
-.article-summary {
-  font-size: 14px;
-  color: #666;
-  padding-left: 0;
-  line-height: 1.5;
-}
-
-/* ── Accordion Detail ── */
-.article-detail {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease;
-}
-
-.article.expanded .article-detail {
-  max-height: 1000px;
-}
-
-.detail-inner {
-  margin: 0 16px 16px;
-  padding: 16px 18px;
-  background: #f8faff;
-  border-left: 3px solid var(--blue);
-  border-radius: 0 8px 8px 0;
-}
-
-.detail-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--blue);
-  margin-bottom: 8px;
-}
-
-.detail-text {
-  font-size: 15px;
-  color: #444;
-  line-height: 1.8;
-  white-space: pre-line;
-}
-
-.detail-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: 14px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--blue);
-  text-decoration: none;
-  transition: opacity 0.15s;
-}
-
-.detail-link:hover { opacity: 0.7; }
-
-/* ── Mobile ── */
-.hamburger {
-  display: none;
-  position: fixed;
-  top: 12px; left: 12px;
-  z-index: 200;
-  background: var(--white);
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  width: 40px; height: 40px;
-  font-size: 20px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-}
-
-.overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.3);
-  z-index: 90;
-}
-
+/* ── Mobile hamburger ── */
+.hamburger { display: none; position: fixed; top: 12px; left: 12px; z-index: 200; background: #fff; border: 1px solid #eee; border-radius: 6px; width: 36px; height: 36px; font-size: 18px; cursor: pointer; align-items: center; justify-content: center; }
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 90; }
 .overlay.show { display: block; }
 
+/* ── Mobile ── */
 @media (max-width: 768px) {
   .hamburger { display: flex; }
-
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.25s ease;
-    box-shadow: 2px 0 12px rgba(0,0,0,0.1);
-  }
-
+  .sidebar { transform: translateX(-100%); transition: transform 0.25s ease; }
   .sidebar.open { transform: translateX(0); }
-
-  .main {
-    margin-left: 0;
-    padding: 64px 16px 24px;
-  }
+  .main { margin-left: 0; padding: 60px 16px 24px; }
 }
 
 /* ── Print ── */
@@ -373,14 +100,6 @@ body {
   .article-detail { max-height: none !important; }
   .article { break-inside: avoid; }
 }
-
-/* ── Empty state ── */
-.empty-state {
-  text-align: center;
-  padding: 48px 20px;
-  color: #bbb;
-  font-size: 14px;
-}
 </style>
 </head>
 <body>
@@ -388,60 +107,52 @@ body {
 <button class="hamburger" id="hamburger" aria-label="메뉴 열기">☰</button>
 <div class="overlay" id="overlay"></div>
 
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar-header">
-    <div class="sidebar-logo">AI TREND</div>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">AI TREND</div>
     <div class="sidebar-tagline">AI 트렌드를 한눈에</div>
-    <div class="sidebar-schedule">월·수·금 업데이트</div>
-  </div>
-  <nav class="sidebar-nav">
-    <button class="nav-item active" data-filter="all">
-      <span class="nav-icon">📋</span> 전체
-    </button>
-    <button class="nav-item" data-filter="top">
-      <span class="nav-icon">⭐</span> Top News
-    </button>
-    <button class="nav-item" data-filter="bookmark">
-      <span class="nav-icon">🔖</span> 북마크
-    </button>
-    <div class="nav-divider"></div>
-    <div class="nav-section-label">태그</div>
-    <button class="nav-item" data-filter="tag:모델 출시">
-      <span class="nav-icon" style="color:#1d4ed8">●</span> 모델 출시
-    </button>
-    <button class="nav-item" data-filter="tag:개발 도구">
-      <span class="nav-icon" style="color:#166534">●</span> 개발 도구
-    </button>
-    <button class="nav-item" data-filter="tag:AI 연구">
-      <span class="nav-icon" style="color:#7c3aed">●</span> AI 연구
-    </button>
-    <button class="nav-item" data-filter="tag:개발 문화">
-      <span class="nav-icon" style="color:#c2410c">●</span> 개발 문화
-    </button>
-    <button class="nav-item" data-filter="tag:규제·정책">
-      <span class="nav-icon" style="color:#dc2626">●</span> 규제·정책
-    </button>
-  </nav>
-  <div class="sidebar-footer">
-    출처: OpenAI, Google, TechCrunch, The Verge, Ars Technica, Reuters 외
-  </div>
-</aside>
 
-<main class="main">
-  <div class="main-inner">
-    <div class="content-header">
-      <div class="content-date" id="currentDate"></div>
-      <div class="content-count" id="articleCount"></div>
+    <div class="nav-section">
+      <div class="nav-label">날짜</div>
+      <ul class="nav-list" id="dateNav">
+        <li><button class="active" data-filter="all">전체</button></li>
+      </ul>
     </div>
-    <div id="topNewsSection"></div>
+
+    <div class="nav-section">
+      <div class="nav-label">카테고리</div>
+      <ul class="nav-list" id="tagNav"></ul>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">필터</div>
+      <ul class="nav-list">
+        <li><button data-filter="top">⭐ Top News</button></li>
+        <li><button data-filter="bookmark">저장한 글</button></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      주 3회 업데이트<br>월·수·금
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <h1 class="page-title">오늘의 AI 트렌드</h1>
+      <p class="page-date" id="pageDate"></p>
+    </div>
+
     <div id="articleList">
       <div class="loading">
         <div class="loading-spinner"></div>
         <div>기사를 불러오는 중...</div>
       </div>
     </div>
-  </div>
-</main>
+
+    <div class="main-footer" id="mainFooter"></div>
+  </main>
+</div>
 
 <script>
 const SUPABASE_URL = 'https://jfvbskitksjvyxrdfnap.supabase.co';
@@ -477,143 +188,149 @@ async function loadArticles() {
   return res.json();
 }
 
-// ── Tag styling ──
-function getTagClass(tag) {
-  if (!tag) return '';
-  const t = tag.replace(/\s/g, '');
-  const map = {
-    '모델출시': 'tag-모델출시',
-    '개발도구': 'tag-개발도구',
-    'AI연구': 'tag-AI연구',
-    '개발문화': 'tag-개발문화',
-    '규제·정책': 'tag-규제정책',
-  };
-  return map[t] || '';
-}
-
-// ── Date format ──
-function formatDate(d) {
-  if (!d) return '';
-  const date = new Date(d);
-  return `${date.getMonth() + 1}/${date.getDate()}`;
-}
-
-function formatFullDate(d) {
-  const date = new Date(d);
-  const days = ['일', '월', '화', '수', '목', '금', '토'];
-  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 (${days[date.getDay()]})`;
-}
-
-// ── Filter ──
-function getFilteredArticles() {
-  const bookmarks = getBookmarks();
-  switch (currentFilter) {
-    case 'all': return allArticles;
-    case 'top': return allArticles.filter(a => a.is_top);
-    case 'bookmark': return allArticles.filter(a => bookmarks.includes(a.id));
-    default:
-      if (currentFilter.startsWith('tag:')) {
-        const tag = currentFilter.slice(4);
-        return allArticles.filter(a => a.tag === tag);
-      }
-      return allArticles;
-  }
-}
-
-// ── Render ──
-function renderArticle(article, isTopSection = false) {
-  const bookmarks = getBookmarks();
-  const isBookmarked = bookmarks.includes(article.id);
-  const tagClass = getTagClass(article.tag);
-
-  return `
-    <div class="article ${article.is_top && isTopSection ? 'is-top' : ''}" data-id="${article.id}">
-      <div class="article-header" onclick="toggleAccordion(this)">
-        <div class="article-row1">
-          ${article.tag ? `<span class="tag-pill ${tagClass}">${article.tag}</span>` : ''}
-          <span class="article-title">${article.is_top && isTopSection ? '⭐ ' : ''}${escapeHtml(article.title)}</span>
-          <span class="article-meta">
-            <span class="article-source">${escapeHtml(article.source || '')}</span>
-            <span class="article-date">${formatDate(article.date)}</span>
-            <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmark(${article.id})" title="북마크">🔖</button>
-          </span>
-        </div>
-        <div class="article-summary">${escapeHtml(article.summary || '')}</div>
-      </div>
-      <div class="article-detail">
-        <div class="detail-inner">
-          <div class="detail-label">왜 중요한가</div>
-          <div class="detail-text">${escapeHtml(article.importance || '정보 없음')}</div>
-          ${article.source_url ? `<a class="detail-link" href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">원문 보기 →</a>` : ''}
-        </div>
-      </div>
-    </div>`;
-}
-
-function render() {
-  const articles = getFilteredArticles();
-  const topSection = document.getElementById('topNewsSection');
-  const listEl = document.getElementById('articleList');
-  const countEl = document.getElementById('articleCount');
-
-  countEl.textContent = `총 ${articles.length}건`;
-
-  // Top news (only on "all" filter)
-  if (currentFilter === 'all') {
-    const topArticles = articles.filter(a => a.is_top);
-    if (topArticles.length > 0) {
-      topSection.innerHTML = `
-        <div class="top-news-section">
-          <div class="top-news-label">⭐ Top News</div>
-          ${topArticles.map(a => renderArticle(a, true)).join('')}
-        </div>`;
-    } else {
-      topSection.innerHTML = '';
-    }
-    // Regular list excludes top articles when showing "all"
-    const regular = articles.filter(a => !a.is_top);
-    listEl.innerHTML = regular.length
-      ? regular.map(a => renderArticle(a)).join('')
-      : (allArticles.length ? '' : '<div class="empty-state">기사가 없습니다</div>');
-  } else {
-    topSection.innerHTML = '';
-    listEl.innerHTML = articles.length
-      ? articles.map(a => renderArticle(a)).join('')
-      : `<div class="empty-state">${currentFilter === 'bookmark' ? '북마크한 기사가 없습니다' : '해당 기사가 없습니다'}</div>`;
-  }
-}
-
+// ── Helpers ──
 function escapeHtml(text) {
   const el = document.createElement('span');
   el.textContent = text;
   return el.innerHTML;
 }
 
-// ── Accordion ──
-function toggleAccordion(header) {
-  const article = header.closest('.article');
-  article.classList.toggle('expanded');
+function formatDateShort(d) {
+  if (!d) return '';
+  return d; // already YYYY-MM-DD
 }
 
-// ── Sidebar nav ──
-document.querySelectorAll('.nav-item').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = btn.dataset.filter;
-    render();
-    // Close mobile sidebar
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('overlay').classList.remove('show');
+function getDayName(d) {
+  if (!d) return '';
+  const date = new Date(d + 'T00:00:00');
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  return days[date.getDay()];
+}
+
+function formatFullDate(d) {
+  const date = new Date(d);
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${days[date.getDay()]}요일 · `;
+}
+
+// ── Build sidebar nav dynamically ──
+function buildSidebarNav() {
+  // Date nav
+  const dateNav = document.getElementById('dateNav');
+  const dateCounts = {};
+  allArticles.forEach(a => {
+    if (a.date) {
+      dateCounts[a.date] = (dateCounts[a.date] || 0) + 1;
+    }
   });
-});
+  const dates = Object.keys(dateCounts).sort().reverse();
+
+  let dateHtml = `<li><button class="${currentFilter === 'all' ? 'active' : ''}" data-filter="all">전체 <span class="nav-count">${allArticles.length}</span></button></li>`;
+  dates.forEach(d => {
+    const dayName = getDayName(d);
+    const filterKey = `date:${d}`;
+    dateHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}">${d} (${dayName}) <span class="nav-count">${dateCounts[d]}</span></button></li>`;
+  });
+  dateNav.innerHTML = dateHtml;
+
+  // Tag nav
+  const tagNav = document.getElementById('tagNav');
+  const tagCounts = {};
+  allArticles.forEach(a => {
+    if (a.tag) {
+      tagCounts[a.tag] = (tagCounts[a.tag] || 0) + 1;
+    }
+  });
+  const tags = Object.keys(tagCounts).sort();
+
+  let tagHtml = '';
+  tags.forEach(t => {
+    const filterKey = `tag:${t}`;
+    tagHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}">${t} <span class="nav-count">${tagCounts[t]}</span></button></li>`;
+  });
+  tagNav.innerHTML = tagHtml;
+
+  // Re-bind all nav buttons
+  document.querySelectorAll('.nav-list button[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentFilter = btn.dataset.filter;
+      buildSidebarNav();
+      render();
+      // Close mobile sidebar
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('show');
+    });
+  });
+}
+
+// ── Filter ──
+function getFilteredArticles() {
+  const bookmarks = getBookmarks();
+  if (currentFilter === 'all') return allArticles;
+  if (currentFilter === 'top') return allArticles.filter(a => a.is_top);
+  if (currentFilter === 'bookmark') return allArticles.filter(a => bookmarks.includes(a.id));
+  if (currentFilter.startsWith('tag:')) {
+    const tag = currentFilter.slice(4);
+    return allArticles.filter(a => a.tag === tag);
+  }
+  if (currentFilter.startsWith('date:')) {
+    const date = currentFilter.slice(5);
+    return allArticles.filter(a => a.date === date);
+  }
+  return allArticles;
+}
+
+// ── Render article ──
+function renderArticle(article) {
+  const bookmarks = getBookmarks();
+  const isBookmarked = bookmarks.includes(article.id);
+
+  return `
+    <div class="article" data-id="${article.id}">
+      <div class="article-header">
+        ${article.tag ? `<span class="tag">${escapeHtml(article.tag)}</span>` : ''}
+        <span class="date">${formatDateShort(article.date)}</span>
+      </div>
+      <div class="article-title-row">
+        <h2 class="article-title" onclick="toggleAccordion(this)">${escapeHtml(article.title)}</h2>
+        <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark(${article.id})" title="저장">${isBookmarked ? '★ 저장됨' : '☆ 저장'}</button>
+      </div>
+      <p class="article-summary">${escapeHtml(article.summary || '')}</p>
+      <div class="article-detail">
+        <div class="importance"><strong>왜 중요한가</strong> — ${escapeHtml(article.importance || '정보 없음')}</div>
+        ${article.source_url ? `<div class="source">출처: <a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">${escapeHtml(article.source || '원문')} →</a></div>` : (article.source ? `<div class="source">출처: ${escapeHtml(article.source)}</div>` : '')}
+      </div>
+    </div>`;
+}
+
+// ── Render all ──
+function render() {
+  const articles = getFilteredArticles();
+  const listEl = document.getElementById('articleList');
+  const dateEl = document.getElementById('pageDate');
+
+  dateEl.textContent = formatFullDate(new Date()) + `${articles.length}건`;
+
+  if (articles.length === 0) {
+    const msg = currentFilter === 'bookmark' ? '저장한 기사가 없습니다' : '해당 기사가 없습니다';
+    listEl.innerHTML = `<div class="empty-state">${msg}</div>`;
+    return;
+  }
+
+  listEl.innerHTML = articles.map(a => renderArticle(a)).join('');
+}
+
+// ── Accordion ──
+function toggleAccordion(titleEl) {
+  const article = titleEl.closest('.article');
+  article.classList.toggle('expanded');
+}
 
 // ── Mobile hamburger ──
 document.getElementById('hamburger').addEventListener('click', () => {
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('overlay').classList.toggle('show');
 });
-
 document.getElementById('overlay').addEventListener('click', () => {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('overlay').classList.remove('show');
@@ -621,17 +338,14 @@ document.getElementById('overlay').addEventListener('click', () => {
 
 // ── Init ──
 (async () => {
-  document.getElementById('currentDate').textContent = formatFullDate(new Date());
-
   try {
     allArticles = await loadArticles();
-    console.log('Loaded articles:', allArticles.length, allArticles);
+    buildSidebarNav();
     render();
   } catch (err) {
     console.error('Failed to load articles:', err);
     document.getElementById('articleList').innerHTML = `
       <div class="error-msg">
-        <span>😢</span>
         기사를 불러오지 못했습니다.<br>
         <small style="color:#ccc">잠시 후 다시 시도해 주세요.</small>
       </div>`;
