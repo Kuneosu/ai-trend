@@ -474,7 +474,7 @@ function renderArticle(article) {
       <div class="article-header">
         ${article.tag ? `<span class="tag">${escapeHtml(article.tag)}</span>` : ''}
         ${isTop ? `<span class="top-badge"><i class="lucide-star" style="font-size:10px;vertical-align:0px;margin-right:2px"></i>TOP</span>` : ''}
-        <span class="date">${publishDate || ''}</span>
+        <span class="date">${article.date || ''}</span>
       </div>
       <div class="article-title-row">
         <h2 class="article-title">${escapeHtml(article.title)}</h2>
