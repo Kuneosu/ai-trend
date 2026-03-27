@@ -53,25 +53,37 @@ a:hover { color: #2563eb; }
 .page-sub { font-size: 13px; color: #999; }
 
 /* ── Article card ── */
-.article { margin-bottom: 24px; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px; background: #fff; }
+.article { margin-bottom: 24px; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px; background: #fff; display: flex; gap: 16px; }
 .article:hover { border-color: #e0e0e0; }
 .article { cursor: pointer; }
 .article.is-top { border-left: 3px solid #2563eb; }
+.article-content { flex: 1; min-width: 0; }
 
-/* Rank badge */
-.rank-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 22px; font-size: 11px; font-weight: 700; border-radius: 4px; background: #f5f5f5; color: #888; padding: 0 6px; }
-.rank-1 { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; }
-.rank-1::before, .rank-1::after { content: '🏆'; font-size: 9px; }
-.rank-1::before { margin-right: 2px; }
-.rank-1::after { margin-left: 2px; }
-.rank-2 { background: linear-gradient(135deg, #f1f5f9, #e2e8f0); color: #475569; }
-.rank-2::before, .rank-2::after { content: '🥈'; font-size: 9px; }
-.rank-2::before { margin-right: 2px; }
-.rank-2::after { margin-left: 2px; }
-.rank-3 { background: linear-gradient(135deg, #fef3e2, #fed7aa); color: #9a3412; }
-.rank-3::before, .rank-3::after { content: '🥉'; font-size: 9px; }
-.rank-3::before { margin-right: 2px; }
-.rank-3::after { margin-left: 2px; }
+/* Rank — left side number (hidden by default, shown in date/week filter) */
+.rank-area { display: none; flex-direction: column; align-items: center; justify-content: flex-start; min-width: 44px; padding-top: 2px; }
+.show-ranks .rank-area { display: flex; }
+.rank-num { font-size: 20px; font-weight: 800; color: #ddd; line-height: 1; }
+.rank-score { font-size: 10px; color: #bbb; margin-top: 4px; }
+
+/* Top 3 laurel wreath */
+.rank-laurel { position: relative; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.rank-laurel .rank-num { position: relative; z-index: 2; }
+/* Left leaf */
+.rank-laurel::before { content: ''; position: absolute; left: 0; top: 4px; width: 16px; height: 36px; border: 2.5px solid transparent; border-radius: 0 0 0 50%; border-left-color: currentColor; border-bottom-color: currentColor; transform: rotate(10deg); }
+/* Right leaf */
+.rank-laurel::after { content: ''; position: absolute; right: 0; top: 4px; width: 16px; height: 36px; border: 2.5px solid transparent; border-radius: 0 0 50% 0; border-right-color: currentColor; border-bottom-color: currentColor; transform: rotate(-10deg); }
+
+.rank-1-area .rank-num { color: #d97706; font-size: 22px; }
+.rank-1-area .rank-laurel { color: #d97706; }
+.rank-1-area .rank-score { color: #d97706; }
+
+.rank-2-area .rank-num { color: #94a3b8; font-size: 22px; }
+.rank-2-area .rank-laurel { color: #94a3b8; }
+.rank-2-area .rank-score { color: #94a3b8; }
+
+.rank-3-area .rank-num { color: #c2794a; font-size: 22px; }
+.rank-3-area .rank-laurel { color: #c2794a; }
+.rank-3-area .rank-score { color: #c2794a; }
 
 .article-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 .tag { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 3px; }
@@ -496,10 +508,19 @@ function renderArticle(article) {
   const isTop = article.is_top;
   const publishDate = getArticlePublishDate(article);
 
+  const rankClass = article.rank && article.rank <= 3 ? `rank-${article.rank}-area` : '';
+  const isLaurel = article.rank && article.rank <= 3;
+
   return `
     <div class="article ${isTop ? 'is-top' : ''}" data-id="${article.id}">
+      <div class="rank-area ${rankClass}">
+        ${article.rank ? (isLaurel ? 
+          `<div class="rank-laurel"><span class="rank-num">${article.rank}</span></div>` :
+          `<span class="rank-num">${article.rank}</span>`) : ''}
+        ${article.score ? `<span class="rank-score">${article.score}점</span>` : ''}
+      </div>
+      <div class="article-content">
       <div class="article-header">
-        ${article.rank ? `<span class="rank-badge ${article.rank <= 3 ? 'rank-' + article.rank : ''}">#${article.rank}</span>` : ''}
         ${article.tag ? `<span class="tag">${escapeHtml(article.tag)}</span>` : ''}
         ${isTop ? `<span class="top-badge"><i class="icon-star" style="font-size:10px;vertical-align:0px;margin-right:2px"></i>TOP</span>` : ''}
         <span class="date">${article.date || ''}</span>
@@ -515,6 +536,7 @@ function renderArticle(article) {
           ${article.source_url ? `출처: <a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">${escapeHtml(article.source || '원문')} →</a>` : (article.source ? `출처: ${escapeHtml(article.source)}` : '')}
           ${article.via_url ? ` · <a href="${escapeHtml(article.via_url)}" target="_blank" rel="noopener">via ${article.via_url.includes('hada.io') ? 'GeekNews' : article.via_url.includes('news.ycombinator') ? 'HackerNews' : '경유'} →</a>` : ''}
         </div>
+      </div>
       </div>
     </div>`;
 }
@@ -583,6 +605,9 @@ function render() {
     html += regularArticles.map(a => renderArticle(a)).join('');
   }
   articleList.innerHTML = html;
+  // Show ranks only in date/week views
+  const showRanks = currentFilter.startsWith("date:") || currentFilter.startsWith("week:");
+  articleList.classList.toggle("show-ranks", showRanks);
 }
 
 // ── Accordion — card click ──
