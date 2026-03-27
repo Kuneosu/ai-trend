@@ -32,7 +32,15 @@ a:hover { color: #2563eb; }
 .nav-list li button.active { background: #e8f0fe; color: #2563eb; font-weight: 500; }
 .nav-count { font-size: 11px; color: #ccc; float: right; }
 
+/* Week group header in date nav */
+.week-header { font-size: 11px; font-weight: 600; color: #999; padding: 6px 10px 2px; margin-top: 6px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: inherit; border-radius: 4px; }
+.week-header:hover { background: #f0f0f0; color: #333; }
+.week-header.active { background: #e8f0fe; color: #2563eb; }
+
 .sidebar-footer { font-size: 11px; color: #ccc; margin-top: auto; padding-top: 16px; border-top: 1px solid #eee; }
+
+/* ── TOP badge ── */
+.top-badge { font-size: 10px; font-weight: 700; color: #2563eb; background: #eff6ff; padding: 2px 6px; border-radius: 3px; letter-spacing: 0.5px; }
 
 /* ── Main content ── */
 .main { flex: 1; margin-left: 240px; padding: 32px 40px; max-width: 960px; }
@@ -44,6 +52,7 @@ a:hover { color: #2563eb; }
 /* ── Article card ── */
 .article { margin-bottom: 24px; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px; background: #fff; }
 .article:hover { border-color: #e0e0e0; }
+.article.is-top { border-left: 3px solid #2563eb; }
 
 .article-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 .tag { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 3px; }
@@ -72,6 +81,15 @@ a:hover { color: #2563eb; }
 .source { font-size: 13px; color: #888; margin-top: 8px; }
 .source a { color: #666; }
 .source a:hover { color: #2563eb; }
+
+/* ── About page ── */
+.about-page { max-width: 640px; }
+.about-section { margin-bottom: 28px; }
+.about-section h3 { font-size: 15px; font-weight: 600; color: #111; margin-bottom: 8px; }
+.about-section p { font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 8px; }
+.about-section ul { list-style: none; padding: 0; }
+.about-section ul li { position: relative; padding-left: 14px; font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 4px; }
+.about-section ul li::before { content: '·'; position: absolute; left: 0; font-weight: 700; color: #2563eb; }
 
 /* ── Loading / Error ── */
 .loading { text-align: center; padding: 60px 0; color: #999; font-size: 14px; }
@@ -130,8 +148,15 @@ a:hover { color: #2563eb; }
     <div class="nav-section">
       <div class="nav-label">필터</div>
       <ul class="nav-list">
-        <li><button data-filter="top">⭐ Top News</button></li>
+        <li><button data-filter="top"><span class="top-badge">TOP</span> Top News</button></li>
         <li><button data-filter="bookmark">저장한 글</button></li>
+      </ul>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">정보</div>
+      <ul class="nav-list">
+        <li><button data-filter="about">수집 및 선정 방식</button></li>
       </ul>
     </div>
 
@@ -153,6 +178,52 @@ a:hover { color: #2563eb; }
       </div>
     </div>
 
+    <div class="about-page" id="aboutPage" style="display:none">
+      <h1 class="page-title">글 수집 및 선정 방식</h1>
+      <p class="page-date" style="margin-bottom:24px">AI TREND의 콘텐츠가 만들어지는 과정</p>
+
+      <div class="about-section">
+        <h3>수집 소스</h3>
+        <p>다음 8개 소스에서 AI 관련 뉴스와 아티클을 수집합니다.</p>
+        <ul>
+          <li><strong>GeekNews</strong> — 한국 개발자 커뮤니티 (RSS)</li>
+          <li><strong>Hacker News</strong> — 글로벌 개발자 커뮤니티 (API)</li>
+          <li><strong>요즘IT</strong> — 한국어 기술 아티클</li>
+          <li><strong>Google DeepMind Blog</strong> — AI 연구 최전선 (RSS)</li>
+          <li><strong>MIT Technology Review</strong> — AI 트렌드 분석 (RSS)</li>
+          <li><strong>The Verge AI</strong> — AI 제품/서비스 속보 (RSS)</li>
+          <li><strong>Anthropic News</strong> — Claude 관련 공식 발표</li>
+          <li><strong>OpenAI News</strong> — GPT/ChatGPT 공식 발표</li>
+        </ul>
+      </div>
+
+      <div class="about-section">
+        <h3>선정 기준</h3>
+        <p>수집된 뉴스 중 다음 기준으로 선정합니다.</p>
+        <ul>
+          <li>업계 판도에 영향을 미치는 변화 (새 모델, 인수합병, 규제)</li>
+          <li>실무에 직접 적용할 수 있는 정보 (개발 도구, 워크플로우)</li>
+          <li>기술 트렌드의 방향성을 보여주는 연구/논문</li>
+          <li>개발 문화와 생산성에 대한 인사이트</li>
+        </ul>
+      </div>
+
+      <div class="about-section">
+        <h3>업데이트 주기</h3>
+        <p>매주 <strong>월요일, 수요일, 금요일</strong> 아침 9시에 업데이트됩니다. 각 회차별로 5~8개의 기사를 선정하며, 그 중 하나를 Top News로 지정합니다.</p>
+      </div>
+
+      <div class="about-section">
+        <h3>Top News 선정</h3>
+        <p>각 업데이트 회차마다 가장 중요하고 영향력 있는 뉴스 하나를 Top News로 선정합니다. 주간 기준 최대 3개의 Top News가 있습니다.</p>
+      </div>
+
+      <div class="about-section">
+        <h3>"왜 중요한가"</h3>
+        <p>각 기사에는 단순 요약을 넘어, 해당 뉴스가 왜 중요한지에 대한 맥락과 분석을 제공합니다. 배경, 변화, 영향, 그리고 우리에게 미치는 의미를 구조적으로 정리합니다.</p>
+      </div>
+    </div>
+
     <div class="main-footer" id="mainFooter"></div>
   </main>
 </div>
@@ -161,6 +232,8 @@ a:hover { color: #2563eb; }
 const SUPABASE_URL = 'https://jfvbskitksjvyxrdfnap.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdmJza2l0a3Nqdnl4cmRmbmFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzQ2ODYsImV4cCI6MjA5MDE1MDY4Nn0.oKRNHGnAL2MDxhrQY7RABGHCsZxsa5hoj3Cu-mO_Bvo';
 const BOOKMARK_KEY = 'ai-trend-bookmarks';
+
+const CATEGORIES = ['모델·제품', '개발 도구', '연구·논문', '인사이트', '비즈니스', '규제·정책'];
 
 let allArticles = [];
 let currentFilter = 'all';
@@ -181,7 +254,7 @@ function toggleBookmark(id) {
 
 // ── Data ──
 async function loadArticles() {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/articles?select=*&order=date.desc,created_at.desc`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/articles?select=*,publish_date&order=publish_date.desc,created_at.desc`, {
     headers: {
       'apikey': SUPABASE_KEY,
       'Authorization': `Bearer ${SUPABASE_KEY}`
@@ -199,15 +272,9 @@ function escapeHtml(text) {
 }
 
 function formatImportance(text) {
-  // Split by sentence-ending patterns (. followed by space/newline, or explicit line breaks)
   const sentences = text.split(/(?<=\.)\s+/).filter(s => s.trim());
   if (sentences.length <= 1) return '<ul><li>' + escapeHtml(text) + '</li></ul>';
   return '<ul>' + sentences.map(s => '<li>' + escapeHtml(s.trim()) + '</li>').join('') + '</ul>';
-}
-
-function formatDateShort(d) {
-  if (!d) return '';
-  return d; // already YYYY-MM-DD
 }
 
 function getDayName(d) {
@@ -223,27 +290,72 @@ function formatFullDate(d) {
   return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 ${days[date.getDay()]}요일 · `;
 }
 
+// Get ISO week number
+function getISOWeek(dateStr) {
+  const date = new Date(dateStr + 'T00:00:00');
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return { year: d.getUTCFullYear(), week: weekNo };
+}
+
+// Format publish_date for sidebar: "03.27 (금)"
+function formatPublishDateShort(d) {
+  if (!d) return '';
+  const parts = d.split('-');
+  const month = parts[1];
+  const day = parts[2];
+  const dayName = getDayName(d);
+  return `${month}.${day} (${dayName})`;
+}
+
+// Get effective date for an article (publish_date or fallback to date)
+function getArticlePublishDate(article) {
+  return article.publish_date || article.date;
+}
+
 // ── Build sidebar nav dynamically ──
 function buildSidebarNav() {
-  // Date nav
+  // Date nav - group by publish_date weeks
   const dateNav = document.getElementById('dateNav');
-  const dateCounts = {};
+  const pubDateCounts = {};
   allArticles.forEach(a => {
-    if (a.date) {
-      dateCounts[a.date] = (dateCounts[a.date] || 0) + 1;
+    const pd = getArticlePublishDate(a);
+    if (pd) {
+      pubDateCounts[pd] = (pubDateCounts[pd] || 0) + 1;
     }
   });
-  const dates = Object.keys(dateCounts).sort().reverse();
+  const pubDates = Object.keys(pubDateCounts).sort().reverse();
+
+  // Group by ISO week
+  const weekGroups = {};
+  pubDates.forEach(d => {
+    const { year, week } = getISOWeek(d);
+    const weekKey = `${year}-W${week}`;
+    if (!weekGroups[weekKey]) {
+      weekGroups[weekKey] = { year, week, dates: [] };
+    }
+    weekGroups[weekKey].dates.push(d);
+  });
 
   let dateHtml = `<li><button class="${currentFilter === 'all' ? 'active' : ''}" data-filter="all">전체 <span class="nav-count">${allArticles.length}</span></button></li>`;
-  dates.forEach(d => {
-    const dayName = getDayName(d);
-    const filterKey = `date:${d}`;
-    dateHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}">${d} (${dayName}) <span class="nav-count">${dateCounts[d]}</span></button></li>`;
+
+  Object.keys(weekGroups).sort().reverse().forEach(weekKey => {
+    const group = weekGroups[weekKey];
+    const weekFilterKey = `week:${weekKey}`;
+    const weekCount = group.dates.reduce((sum, d) => sum + pubDateCounts[d], 0);
+    dateHtml += `<li><button class="week-header ${currentFilter === weekFilterKey ? 'active' : ''}" data-filter="${weekFilterKey}">${group.year}년 ${group.week}주차 <span class="nav-count">${weekCount}</span></button></li>`;
+
+    group.dates.forEach(d => {
+      const filterKey = `date:${d}`;
+      dateHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}" style="padding-left:20px;font-size:12px">${formatPublishDateShort(d)} <span class="nav-count">${pubDateCounts[d]}</span></button></li>`;
+    });
   });
   dateNav.innerHTML = dateHtml;
 
-  // Tag nav
+  // Tag nav - use fixed categories, only show ones with articles
   const tagNav = document.getElementById('tagNav');
   const tagCounts = {};
   allArticles.forEach(a => {
@@ -251,12 +363,20 @@ function buildSidebarNav() {
       tagCounts[a.tag] = (tagCounts[a.tag] || 0) + 1;
     }
   });
-  const tags = Object.keys(tagCounts).sort();
 
   let tagHtml = '';
-  tags.forEach(t => {
+  CATEGORIES.forEach(t => {
+    const count = tagCounts[t] || 0;
+    if (count === 0) return;
     const filterKey = `tag:${t}`;
-    tagHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}">${t} <span class="nav-count">${tagCounts[t]}</span></button></li>`;
+    tagHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}">${t} <span class="nav-count">${count}</span></button></li>`;
+  });
+  // Also show any tags not in CATEGORIES
+  Object.keys(tagCounts).forEach(t => {
+    if (!CATEGORIES.includes(t)) {
+      const filterKey = `tag:${t}`;
+      tagHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}">${t} <span class="nav-count">${tagCounts[t]}</span></button></li>`;
+    }
   });
   tagNav.innerHTML = tagHtml;
 
@@ -271,6 +391,16 @@ function buildSidebarNav() {
       document.getElementById('overlay').classList.remove('show');
     });
   });
+  // Also bind week-header buttons
+  document.querySelectorAll('.week-header[data-filter]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      currentFilter = btn.dataset.filter;
+      buildSidebarNav();
+      render();
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('overlay').classList.remove('show');
+    });
+  });
 }
 
 // ── Filter ──
@@ -279,13 +409,23 @@ function getFilteredArticles() {
   if (currentFilter === 'all') return allArticles;
   if (currentFilter === 'top') return allArticles.filter(a => a.is_top);
   if (currentFilter === 'bookmark') return allArticles.filter(a => bookmarks.includes(a.id));
+  if (currentFilter === 'about') return []; // about page handles its own display
   if (currentFilter.startsWith('tag:')) {
     const tag = currentFilter.slice(4);
     return allArticles.filter(a => a.tag === tag);
   }
   if (currentFilter.startsWith('date:')) {
     const date = currentFilter.slice(5);
-    return allArticles.filter(a => a.date === date);
+    return allArticles.filter(a => getArticlePublishDate(a) === date);
+  }
+  if (currentFilter.startsWith('week:')) {
+    const weekKey = currentFilter.slice(5);
+    return allArticles.filter(a => {
+      const pd = getArticlePublishDate(a);
+      if (!pd) return false;
+      const { year, week } = getISOWeek(pd);
+      return `${year}-W${week}` === weekKey;
+    });
   }
   return allArticles;
 }
@@ -294,12 +434,15 @@ function getFilteredArticles() {
 function renderArticle(article) {
   const bookmarks = getBookmarks();
   const isBookmarked = bookmarks.includes(article.id);
+  const isTop = article.is_top;
+  const publishDate = getArticlePublishDate(article);
 
   return `
-    <div class="article" data-id="${article.id}">
+    <div class="article ${isTop ? 'is-top' : ''}" data-id="${article.id}">
       <div class="article-header">
         ${article.tag ? `<span class="tag">${escapeHtml(article.tag)}</span>` : ''}
-        <span class="date">${formatDateShort(article.date)}</span>
+        ${isTop ? `<span class="top-badge">TOP</span>` : ''}
+        <span class="date">${publishDate || ''}</span>
       </div>
       <div class="article-title-row">
         <h2 class="article-title" onclick="toggleAccordion(this)">${escapeHtml(article.title)}</h2>
@@ -315,19 +458,36 @@ function renderArticle(article) {
 
 // ── Render all ──
 function render() {
-  const articles = getFilteredArticles();
-  const listEl = document.getElementById('articleList');
+  const articleList = document.getElementById('articleList');
+  const aboutPage = document.getElementById('aboutPage');
   const dateEl = document.getElementById('pageDate');
+  const pageTitle = document.querySelector('.page-header .page-title');
 
+  // About page
+  if (currentFilter === 'about') {
+    articleList.style.display = 'none';
+    aboutPage.style.display = 'block';
+    pageTitle.style.display = 'none';
+    dateEl.style.display = 'none';
+    return;
+  }
+
+  // Normal article view
+  articleList.style.display = 'block';
+  aboutPage.style.display = 'none';
+  pageTitle.style.display = 'block';
+  dateEl.style.display = 'block';
+
+  const articles = getFilteredArticles();
   dateEl.textContent = formatFullDate(new Date()) + `${articles.length}건`;
 
   if (articles.length === 0) {
     const msg = currentFilter === 'bookmark' ? '저장한 기사가 없습니다' : '해당 기사가 없습니다';
-    listEl.innerHTML = `<div class="empty-state">${msg}</div>`;
+    articleList.innerHTML = `<div class="empty-state">${msg}</div>`;
     return;
   }
 
-  listEl.innerHTML = articles.map(a => renderArticle(a)).join('');
+  articleList.innerHTML = articles.map(a => renderArticle(a)).join('');
 }
 
 // ── Accordion ──
