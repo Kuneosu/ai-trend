@@ -590,7 +590,6 @@ function render() {
   }
 
   let html = '';
-  if (currentFilter === 'top' || currentFilter === 'bookmark' || currentFilter.startsWith('tag:')) {
   html = articles.map(a => renderArticle(a)).join('');
   articleList.innerHTML = html;
   // Show ranks only in date/week views
