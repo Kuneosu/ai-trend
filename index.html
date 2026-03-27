@@ -18,23 +18,23 @@ a:hover { color: #2563eb; }
 
 /* ── Sidebar ── */
 .sidebar { width: 240px; background: #fafafa; border-right: 1px solid #eee; padding: 32px 20px; flex-shrink: 0; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; display: flex; flex-direction: column; z-index: 100; }
-.sidebar-title { font-size: 14px; font-weight: 800; color: #111; letter-spacing: 1px; margin-bottom: 4px; }
-.sidebar-tagline { font-size: 11px; color: #999; margin-bottom: 24px; }
+.sidebar-title { font-size: 16px; font-weight: 800; color: #111; letter-spacing: 1px; margin-bottom: 4px; }
+.sidebar-tagline { font-size: 12px; color: #888; margin-bottom: 24px; }
 
 .nav-section { margin-bottom: 24px; }
-.nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #bbb; margin-bottom: 8px; }
+.nav-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 8px; }
 .nav-list { list-style: none; }
 .nav-list li { margin-bottom: 2px; }
 .nav-list li a,
-.nav-list li button { display: block; font-size: 13px; color: #666; padding: 4px 10px; border-radius: 4px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: inherit; line-height: 1.7; }
+.nav-list li button { display: block; font-size: 14px; color: #555; padding: 5px 10px; border-radius: 4px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: inherit; line-height: 1.7; }
 .nav-list li a:hover,
 .nav-list li button:hover { background: #f0f0f0; color: #333; }
 .nav-list li a.active,
-.nav-list li button.active { background: #e8f0fe; color: #2563eb; font-weight: 500; }
+.nav-list li button.active { background: #e8f0fe; color: #2563eb; font-weight: 600; }
 .nav-count { font-size: 11px; color: #ccc; float: right; }
 
 /* Week group header in date nav */
-.week-header { font-size: 11px; font-weight: 600; color: #999; padding: 6px 10px 2px; margin-top: 6px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: inherit; border-radius: 4px; }
+.week-header { font-size: 12px; font-weight: 600; color: #888; padding: 6px 10px 2px; margin-top: 6px; cursor: pointer; border: none; background: none; width: 100%; text-align: left; font-family: inherit; border-radius: 4px; }
 .week-header:hover { background: #f0f0f0; color: #333; }
 .week-header.active { background: #e8f0fe; color: #2563eb; }
 
@@ -165,7 +165,9 @@ a:hover { color: #2563eb; }
     </div>
 
     <div class="sidebar-footer">
-      주 3회 업데이트<br>월·수·금
+      <div>v1.0.0</div>
+      <div style="margin-top:4px">© 2026 AI TREND</div>
+      <a href="https://github.com/Kuneosu/ai-trend" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;color:#aaa;font-size:11px"><i class="lucide-github" style="font-size:12px"></i>GitHub</a>
     </div>
   </aside>
 
@@ -213,7 +215,17 @@ a:hover { color: #2563eb; }
 
       <div class="about-section">
         <h3>업데이트 주기</h3>
-        <p>매주 <strong>월요일, 수요일, 금요일</strong> 아침 9시에 업데이트됩니다. 각 회차별로 5~8개의 기사를 선정하며, 그 중 하나를 Top News로 지정합니다.</p>
+        <p>매주 <strong>월요일, 수요일, 금요일</strong> 아침에 업데이트됩니다. 각 회차별로 10개의 기사를 선정하며(카테고리별 최소 1건), 그 중 하나를 Top News로 지정합니다.</p>
+      </div>
+
+      <div class="about-section">
+        <h3>수집 프로세스</h3>
+        <p><strong>매일 밤 11시</strong>에 자동 수집 스크립트가 8개 소스를 순회하며 최신 기사를 수집합니다. 수집된 원문 데이터는 업데이트 날짜 아침에 AI가 자동으로 선별, 분류, 번역, 요약하여 사이트에 반영합니다.</p>
+        <ul>
+          <li>월요일 업데이트 → 금/토/일 수집분</li>
+          <li>수요일 업데이트 → 월/화 수집분</li>
+          <li>금요일 업데이트 → 수/목 수집분</li>
+        </ul>
       </div>
 
       <div class="about-section">
