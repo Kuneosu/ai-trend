@@ -39,7 +39,7 @@ a:hover { color: #2563eb; }
 
 .page-header { margin-bottom: 32px; }
 .page-title { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 4px; }
-.page-date { font-size: 13px; color: #999; }
+.page-date { font-size: 14px; color: #666; }
 
 /* ── Article card ── */
 .article { margin-bottom: 24px; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px; background: #fff; }
@@ -47,27 +47,30 @@ a:hover { color: #2563eb; }
 
 .article-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
 .tag { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 3px; }
-.date { font-size: 11px; color: #ccc; }
+.date { font-size: 12px; color: #999; }
 
 .article-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
-.article-title { font-size: 16px; font-weight: 700; color: #111; line-height: 1.4; cursor: pointer; flex: 1; }
+.article-title { font-size: 17px; font-weight: 700; color: #111; line-height: 1.4; cursor: pointer; flex: 1; }
 .article-title:hover { color: #2563eb; }
 
 .bookmark-btn { background: none; border: none; font-size: 12px; color: #ccc; cursor: pointer; padding: 2px 6px; white-space: nowrap; flex-shrink: 0; }
 .bookmark-btn:hover { color: #2563eb; }
 .bookmark-btn.active { color: #2563eb; }
 
-.article-summary { font-size: 14px; color: #666; margin-bottom: 0; line-height: 1.6; }
+.article-summary { font-size: 15px; color: #444; margin-bottom: 0; line-height: 1.6; }
 
 /* ── Accordion importance ── */
 .article-detail { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
 .article.expanded .article-detail { max-height: 500px; }
 
-.importance { font-size: 13px; color: #777; background: #fafafa; padding: 8px 12px; border-left: 3px solid #e5e5e5; border-radius: 0 4px 4px 0; margin-top: 10px; margin-bottom: 8px; }
-.importance strong { font-weight: 600; color: #444; }
+.importance { font-size: 14px; color: #333; background: #fafafa; padding: 12px 16px; border-left: 3px solid #e5e5e5; border-radius: 0 4px 4px 0; margin-top: 12px; margin-bottom: 8px; }
+.importance strong { font-weight: 600; color: #111; display: block; margin-bottom: 6px; }
+.importance ul { list-style: none; padding: 0; margin: 0; }
+.importance ul li { position: relative; padding-left: 14px; margin-bottom: 4px; line-height: 1.7; }
+.importance ul li::before { content: '·'; position: absolute; left: 0; font-weight: 700; color: #2563eb; }
 
-.source { font-size: 12px; color: #bbb; margin-top: 6px; }
-.source a { color: #bbb; }
+.source { font-size: 13px; color: #888; margin-top: 8px; }
+.source a { color: #666; }
 .source a:hover { color: #2563eb; }
 
 /* ── Loading / Error ── */
@@ -195,6 +198,13 @@ function escapeHtml(text) {
   return el.innerHTML;
 }
 
+function formatImportance(text) {
+  // Split by sentence-ending patterns (. followed by space/newline, or explicit line breaks)
+  const sentences = text.split(/(?<=\.)\s+/).filter(s => s.trim());
+  if (sentences.length <= 1) return '<ul><li>' + escapeHtml(text) + '</li></ul>';
+  return '<ul>' + sentences.map(s => '<li>' + escapeHtml(s.trim()) + '</li>').join('') + '</ul>';
+}
+
 function formatDateShort(d) {
   if (!d) return '';
   return d; // already YYYY-MM-DD
@@ -297,7 +307,7 @@ function renderArticle(article) {
       </div>
       <p class="article-summary">${escapeHtml(article.summary || '')}</p>
       <div class="article-detail">
-        <div class="importance"><strong>왜 중요한가</strong> — ${escapeHtml(article.importance || '정보 없음')}</div>
+        <div class="importance"><strong>왜 중요한가</strong>${formatImportance(article.importance || '정보 없음')}</div>
         ${article.source_url ? `<div class="source">출처: <a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">${escapeHtml(article.source || '원문')} →</a></div>` : (article.source ? `<div class="source">출처: ${escapeHtml(article.source)}</div>` : '')}
       </div>
     </div>`;
