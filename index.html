@@ -546,18 +546,23 @@ function render() {
     return;
   }
 
-  const topArticles = articles.filter(a => a.is_top);
-  const regularArticles = articles.filter(a => !a.is_top);
-
   let html = '';
-  if (topArticles.length > 0 && currentFilter !== 'top') {
-    html += `<div class="section-label"><i class="lucide-star" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Top News</div>`;
-    html += topArticles.map(a => renderArticle(a)).join('');
-    if (regularArticles.length > 0) {
-      html += `<div class="section-label" style="margin-top:32px">전체 뉴스</div>`;
+  if (currentFilter === 'top' || currentFilter === 'bookmark' || currentFilter.startsWith('tag:')) {
+    // Simple list — no section split
+    html = articles.map(a => renderArticle(a)).join('');
+  } else {
+    // Split top + regular
+    const topArticles = articles.filter(a => a.is_top);
+    const regularArticles = articles.filter(a => !a.is_top);
+    if (topArticles.length > 0) {
+      html += `<div class="section-label"><i class="lucide-star" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Top News</div>`;
+      html += topArticles.map(a => renderArticle(a)).join('');
+      if (regularArticles.length > 0) {
+        html += `<div class="section-label" style="margin-top:32px">전체 뉴스</div>`;
+      }
     }
+    html += regularArticles.map(a => renderArticle(a)).join('');
   }
-  html += regularArticles.map(a => renderArticle(a)).join('');
   articleList.innerHTML = html;
 }
 
