@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI TREND — Terminal</title>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0c0c0c; color: #00ff41; font-family: 'Courier New', 'Fira Code', monospace; line-height: 1.6; font-size: 14px; }
+  body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px); z-index: 999; }
+  a { color: #00ff41; }
+  a:hover { color: #00cc33; }
+  .container { max-width: 960px; margin: 0 auto; padding: 1.5rem; }
+  header { margin-bottom: 1.5rem; }
+  .prompt { color: #00ff41; }
+  .prompt::before { content: '$ '; color: #666; }
+  .ascii-title { color: #00ff41; font-size: 12px; line-height: 1.2; margin-bottom: 0.5rem; white-space: pre; }
+  .tagline { color: #008f11; }
+  .update-info { color: #555; margin-top: 0.5rem; }
+  .separator { color: #333; margin: 1rem 0; }
+  .entry { border: 1px solid #1a3a1a; padding: 1rem; margin-bottom: 1rem; background: #0a0a0a; }
+  .entry-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; }
+  .entry-id { color: #555; }
+  .entry-title { color: #00ff41; font-weight: bold; font-size: 15px; }
+  .tag { color: #0a0a0a; background: #00ff41; padding: 0 4px; font-size: 12px; font-weight: bold; }
+  .entry-summary { color: #008f11; margin: 0.5rem 0; }
+  .entry-summary::before { content: '> '; color: #333; }
+  .importance { color: #ffcc00; margin: 0.5rem 0; padding-left: 1rem; border-left: 2px solid #ffcc00; }
+  .importance::before { content: '[!] '; font-weight: bold; }
+  .meta { color: #444; font-size: 12px; display: flex; gap: 1.5rem; margin-top: 0.5rem; }
+  footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #1a3a1a; color: #333; font-size: 12px; }
+  footer .sources { color: #222; margin-top: 0.5rem; }
+  .cursor { animation: blink 1s infinite; }
+  @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+  @media (max-width: 600px) {
+    .ascii-title { font-size: 8px; }
+    .container { padding: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+<pre class="ascii-title">
+    _    ___   _____ ____  _____ _   _ ____  
+   / \  |_ _| |_   _|  _ \| ____| \ | |  _ \ 
+  / _ \  | |    | | | |_) |  _| |  \| | | | |
+ / ___ \ | |    | | |  _ <| |___| |\  | |_| |
+/_/   \_\___|   |_| |_| \_\_____|_| \_|____/ 
+</pre>
+    <div class="tagline">// AI 트렌드를 한눈에</div>
+    <div class="update-info">[LAST_UPDATE: 2026-03-27T00:00:00+09:00] [FREQ: MON/WED/FRI]</div>
+    <div class="separator">════════════════════════════════════════════════════════════════</div>
+  </header>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-id">[001]</span>
+      <span class="tag">모델 출시</span>
+    </div>
+    <div class="entry-title">OpenAI, GPT-5.4 공식 출시</div>
+    <div class="entry-summary">기존 모델 대비 추론 능력 40% 향상, 코딩 벤치마크에서 Opus 4.6을 상회</div>
+    <div class="importance">경쟁 구도 변화 — Anthropic의 독주 체제에 균열이 생길 수 있는 시점</div>
+    <div class="meta"><span>SRC: <a href="https://openai.com">OpenAI Blog</a></span><span>DATE: 2026-03-27</span></div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-id">[002]</span>
+      <span class="tag">개발 도구</span>
+    </div>
+    <div class="entry-title">Anthropic, Claude Code에 멀티 에이전트 기능 추가</div>
+    <div class="entry-summary">최대 8개 서브에이전트를 동시 실행, 대규모 리팩토링 작업에 최적화</div>
+    <div class="importance">AI 코딩 도구의 패러다임이 '대화형'에서 '오케스트레이션'으로 전환 중</div>
+    <div class="meta"><span>SRC: <a href="https://anthropic.com">Anthropic News</a></span><span>DATE: 2026-03-26</span></div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-id">[003]</span>
+      <span class="tag">AI 연구</span>
+    </div>
+    <div class="entry-title">구글 DeepMind, AlphaFold 4 발표 — 단백질 설계까지 가능</div>
+    <div class="entry-summary">기존 구조 예측을 넘어 새로운 단백질을 처음부터 설계하는 AI</div>
+    <div class="importance">신약 개발 기간이 수년에서 수개월로 단축될 가능성. 바이오 산업 판도 변화</div>
+    <div class="meta"><span>SRC: <a href="https://deepmind.google">DeepMind Blog</a></span><span>DATE: 2026-03-26</span></div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-id">[004]</span>
+      <span class="tag">개발 문화</span>
+    </div>
+    <div class="entry-title">하루에 코딩은 4시간이 한계인 이유</div>
+    <div class="entry-summary">인지심리학 연구에 따르면 딥 워크 한계는 3~4시간, 실제 코딩 시간 중앙값은 52분</div>
+    <div class="importance">AI 도구로 '코딩 시간'을 늘리는 게 아니라 '코딩 밀도'를 높이는 전략이 필요</div>
+    <div class="meta"><span>SRC: <a href="https://news.hada.io">GeekNews</a></span><span>DATE: 2026-03-27</span></div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-id">[005]</span>
+      <span class="tag">규제·정책</span>
+    </div>
+    <div class="entry-title">EU AI Act 시행 1년, 실제 영향과 기업 대응 현황</div>
+    <div class="entry-summary">고위험 AI 시스템 등록 의무화 시작, 벌금 부과 첫 사례도 등장</div>
+    <div class="importance">한국도 AI 기본법 시행 예정 — 글로벌 규제 동향 파악이 필수적인 시점</div>
+    <div class="meta"><span>SRC: <a href="https://technologyreview.com">MIT Technology Review</a></span><span>DATE: 2026-03-25</span></div>
+  </div>
+
+  <footer>
+    <p>// Curated by AI TREND <span class="cursor">█</span></p>
+    <p class="sources">// Sources: OpenAI Blog | Anthropic News | DeepMind Blog | GeekNews | MIT Technology Review</p>
+  </footer>
+</div>
+</body>
+</html>

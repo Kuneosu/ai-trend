@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI TREND — Design Gallery</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Pretendard Variable', sans-serif; line-height: 1.6; }
+  a { color: inherit; text-decoration: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem; }
+  header { text-align: center; margin-bottom: 3rem; }
+  .logo { font-size: 2.5rem; font-weight: 900; color: #fff; }
+  .logo span { color: #4f46e5; }
+  .subtitle { color: #666; font-size: 1rem; margin-top: 0.5rem; }
+  .count { color: #444; font-size: 0.85rem; margin-top: 0.25rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .design-card { background: #141414; border: 1px solid #222; border-radius: 12px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+  .design-card:hover { transform: translateY(-4px); border-color: #4f46e5; }
+  .preview { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
+  .design-card:nth-child(1) .preview { background: #0a0a0a; }
+  .design-card:nth-child(2) .preview { background: #fdf8f0; }
+  .design-card:nth-child(3) .preview { background: #f8f9fc; }
+  .design-card:nth-child(4) .preview { background: #0c0c0c; }
+  .design-card:nth-child(5) .preview { background: #0d1117; }
+  .design-card:nth-child(6) .preview { background: #f5f5f7; }
+  .design-card:nth-child(7) .preview { background: #fff; }
+  .design-card:nth-child(8) .preview { background: #fafaf8; }
+  .design-card:nth-child(9) .preview { background: #111318; }
+  .design-card:nth-child(10) .preview { background: #f0f0f0; }
+  .preview-label { position: absolute; top: 0.75rem; right: 0.75rem; font-size: 0.6rem; padding: 0.15rem 0.5rem; background: rgba(0,0,0,0.5); color: #fff; border-radius: 4px; backdrop-filter: blur(4px); }
+  .info { padding: 1.15rem; }
+  .design-num { font-size: 0.65rem; color: #4f46e5; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+  .design-name { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0.2rem 0 0.35rem; }
+  .design-desc { font-size: 0.8rem; color: #666; line-height: 1.5; }
+  footer { margin-top: 3rem; text-align: center; color: #333; font-size: 0.75rem; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">AI <span>TREND</span></div>
+    <div class="subtitle">Design Mockup Gallery</div>
+    <div class="count">10 design variations</div>
+  </header>
+  <div class="grid">
+    <a href="design-01.html" class="design-card">
+      <div class="preview">🌑<span class="preview-label">Dark</span></div>
+      <div class="info">
+        <div class="design-num">Design 01</div>
+        <div class="design-name">Minimal Dark</div>
+        <div class="design-desc">다크 배경, 블루 액센트, 클린 카드 레이아웃. 개발자 대시보드 느낌.</div>
+      </div>
+    </a>
+    <a href="design-02.html" class="design-card">
+      <div class="preview">📰<span class="preview-label">Light</span></div>
+      <div class="info">
+        <div class="design-num">Design 02</div>
+        <div class="design-name">Newspaper</div>
+        <div class="design-desc">클래식 신문 레이아웃. 세리프 폰트, 멀티 컬럼, 아이보리 배경. NYT 스타일.</div>
+      </div>
+    </a>
+    <a href="design-03.html" class="design-card">
+      <div class="preview">✨<span class="preview-label">Light</span></div>
+      <div class="info">
+        <div class="design-num">Design 03</div>
+        <div class="design-name">Modern Light</div>
+        <div class="design-desc">화이트 배경, 미묘한 그림자, 둥근 카드. Notion/Linear 스타일.</div>
+      </div>
+    </a>
+    <a href="design-04.html" class="design-card">
+      <div class="preview">💻<span class="preview-label">Dark</span></div>
+      <div class="info">
+        <div class="design-num">Design 04</div>
+        <div class="design-name">Terminal / Hacker</div>
+        <div class="design-desc">블랙 배경, 그린 모노스페이스 텍스트. 터미널 스타일 로그 엔트리.</div>
+      </div>
+    </a>
+    <a href="design-05.html" class="design-card">
+      <div class="preview">📖<span class="preview-label">Dark</span></div>
+      <div class="info">
+        <div class="design-num">Design 05</div>
+        <div class="design-name">Magazine Editorial</div>
+        <div class="design-desc">볼드 타이포그래피, 히어로 아티클, 비대칭 그리드. 다크 네이비 + 화이트.</div>
+      </div>
+    </a>
+    <a href="design-06.html" class="design-card">
+      <div class="preview">🌈<span class="preview-label">Light</span></div>
+      <div class="info">
+        <div class="design-num">Design 06</div>
+        <div class="design-name">Gradient Cards</div>
+        <div class="design-desc">태그별 그라디언트 보더, 플로팅 카드 스타일, 호버 이펙트.</div>
+      </div>
+    </a>
+    <a href="design-07.html" class="design-card">
+      <div class="preview">🔲<span class="preview-label">Light</span></div>
+      <div class="info">
+        <div class="design-num">Design 07</div>
+        <div class="design-name">Brutalist</div>
+        <div class="design-desc">의도적으로 거친 디자인. 두꺼운 보더, 모노스페이스, 하이 콘트라스트.</div>
+      </div>
+    </a>
+    <a href="design-08.html" class="design-card">
+      <div class="preview">🇰🇷<span class="preview-label">Light</span></div>
+      <div class="info">
+        <div class="design-num">Design 08</div>
+        <div class="design-name">Korean Modern</div>
+        <div class="design-desc">토스/카카오 스타일. 라운드 코너, 소프트 섀도, 따뜻한 중립색.</div>
+      </div>
+    </a>
+    <a href="design-09.html" class="design-card">
+      <div class="preview">📊<span class="preview-label">Dark</span></div>
+      <div class="info">
+        <div class="design-num">Design 09</div>
+        <div class="design-name">Dashboard</div>
+        <div class="design-desc">사이드바 + 필터, 통계 카드, 그리드 레이아웃. 애널리틱스 대시보드.</div>
+      </div>
+    </a>
+    <a href="design-10.html" class="design-card">
+      <div class="preview">📧<span class="preview-label">Light</span></div>
+      <div class="info">
+        <div class="design-num">Design 10</div>
+        <div class="design-name">Newsletter Email</div>
+        <div class="design-desc">이메일 뉴스레터 스타일. 센터 정렬, 넘버링, 깔끔한 디바이더.</div>
+      </div>
+    </a>
+  </div>
+  <footer>
+    <p>AI TREND Design Mockups · 10 Variations</p>
+  </footer>
+</div>
+</body>
+</html>

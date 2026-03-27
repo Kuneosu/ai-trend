@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI TREND — Minimal Dark</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Pretendard Variable', sans-serif; line-height: 1.6; }
+  a { color: #4a9eff; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+  header { border-bottom: 1px solid #222; padding-bottom: 1.5rem; margin-bottom: 2rem; }
+  .logo { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+  .logo span { color: #4a9eff; }
+  .tagline { color: #888; font-size: 0.95rem; margin-top: 0.25rem; }
+  .update-info { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: #555; margin-top: 0.5rem; }
+  .articles { display: flex; flex-direction: column; gap: 1.25rem; }
+  .card { background: #111; border: 1px solid #1a1a1a; border-radius: 8px; padding: 1.5rem; transition: border-color 0.2s; }
+  .card:hover { border-color: #333; }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .card-title { font-size: 1.15rem; font-weight: 700; color: #fff; }
+  .tag { font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 99px; background: #1a2a3a; color: #4a9eff; white-space: nowrap; font-weight: 500; }
+  .summary { color: #aaa; font-size: 0.9rem; margin-bottom: 0.75rem; }
+  .importance { background: #0d1b2a; border-left: 3px solid #4a9eff; padding: 0.6rem 0.8rem; font-size: 0.85rem; color: #8bb8e8; margin-bottom: 0.75rem; border-radius: 0 4px 4px 0; }
+  .importance::before { content: '💡 '; }
+  .meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #555; }
+  .meta-date { font-family: 'SF Mono', 'Fira Code', monospace; }
+  footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #222; text-align: center; color: #444; font-size: 0.8rem; }
+  footer .sources { margin-top: 0.5rem; color: #333; }
+  @media (max-width: 600px) {
+    .container { padding: 1rem; }
+    .card-header { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">AI <span>TREND</span></div>
+    <div class="tagline">AI 트렌드를 한눈에</div>
+    <div class="update-info">2026년 3월 27일 (금) — 주 3회 업데이트 (월·수·금)</div>
+  </header>
+  <div class="articles">
+    <article class="card">
+      <div class="card-header">
+        <h2 class="card-title">OpenAI, GPT-5.4 공식 출시</h2>
+        <span class="tag">모델 출시</span>
+      </div>
+      <p class="summary">기존 모델 대비 추론 능력 40% 향상, 코딩 벤치마크에서 Opus 4.6을 상회</p>
+      <div class="importance">경쟁 구도 변화 — Anthropic의 독주 체제에 균열이 생길 수 있는 시점</div>
+      <div class="meta">
+        <a href="https://openai.com">OpenAI Blog</a>
+        <span class="meta-date">2026-03-27</span>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-header">
+        <h2 class="card-title">Anthropic, Claude Code에 멀티 에이전트 기능 추가</h2>
+        <span class="tag">개발 도구</span>
+      </div>
+      <p class="summary">최대 8개 서브에이전트를 동시 실행, 대규모 리팩토링 작업에 최적화</p>
+      <div class="importance">AI 코딩 도구의 패러다임이 '대화형'에서 '오케스트레이션'으로 전환 중</div>
+      <div class="meta">
+        <a href="https://anthropic.com">Anthropic News</a>
+        <span class="meta-date">2026-03-26</span>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-header">
+        <h2 class="card-title">구글 DeepMind, AlphaFold 4 발표 — 단백질 설계까지 가능</h2>
+        <span class="tag">AI 연구</span>
+      </div>
+      <p class="summary">기존 구조 예측을 넘어 새로운 단백질을 처음부터 설계하는 AI</p>
+      <div class="importance">신약 개발 기간이 수년에서 수개월로 단축될 가능성. 바이오 산업 판도 변화</div>
+      <div class="meta">
+        <a href="https://deepmind.google">DeepMind Blog</a>
+        <span class="meta-date">2026-03-26</span>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-header">
+        <h2 class="card-title">하루에 코딩은 4시간이 한계인 이유</h2>
+        <span class="tag">개발 문화</span>
+      </div>
+      <p class="summary">인지심리학 연구에 따르면 딥 워크 한계는 3~4시간, 실제 코딩 시간 중앙값은 52분</p>
+      <div class="importance">AI 도구로 '코딩 시간'을 늘리는 게 아니라 '코딩 밀도'를 높이는 전략이 필요</div>
+      <div class="meta">
+        <a href="https://news.hada.io">GeekNews</a>
+        <span class="meta-date">2026-03-27</span>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-header">
+        <h2 class="card-title">EU AI Act 시행 1년, 실제 영향과 기업 대응 현황</h2>
+        <span class="tag">규제·정책</span>
+      </div>
+      <p class="summary">고위험 AI 시스템 등록 의무화 시작, 벌금 부과 첫 사례도 등장</p>
+      <div class="importance">한국도 AI 기본법 시행 예정 — 글로벌 규제 동향 파악이 필수적인 시점</div>
+      <div class="meta">
+        <a href="https://technologyreview.com">MIT Technology Review</a>
+        <span class="meta-date">2026-03-25</span>
+      </div>
+    </article>
+  </div>
+  <footer>
+    <p>Curated by <strong>AI TREND</strong></p>
+    <p class="sources">Sources: OpenAI Blog · Anthropic News · DeepMind Blog · GeekNews · MIT Technology Review</p>
+  </footer>
+</div>
+</body>
+</html>
