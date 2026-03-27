@@ -3,127 +3,173 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI TREND — Dashboard</title>
+<title>AI TREND — Sidebar Nav</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #111318; color: #c9d1d9; font-family: 'Pretendard Variable', sans-serif; line-height: 1.6; }
-  a { color: #58a6ff; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
-  .sidebar { background: #0d1117; padding: 1.5rem 1rem; border-right: 1px solid #21262d; }
-  .sidebar .logo { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem; }
-  .sidebar .tagline { font-size: 0.75rem; color: #484f58; margin-bottom: 1.5rem; }
-  .sidebar h3 { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: #484f58; margin-bottom: 0.75rem; font-weight: 600; }
-  .filter-list { list-style: none; margin-bottom: 1.5rem; }
-  .filter-list li { padding: 0.35rem 0.6rem; font-size: 0.8rem; border-radius: 6px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-  .filter-list li:hover { background: #161b22; }
-  .filter-list li.active { background: #1f2937; color: #fff; }
-  .filter-count { font-size: 0.65rem; background: #21262d; padding: 0.1rem 0.4rem; border-radius: 10px; color: #8b949e; }
-  .source-list { list-style: none; }
-  .source-list li { font-size: 0.72rem; color: #484f58; padding: 0.2rem 0; }
-  .main { padding: 1.5rem 2rem; overflow-y: auto; }
-  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
-  .stat-card { background: #161b22; border: 1px solid #21262d; border-radius: 8px; padding: 1rem; }
-  .stat-value { font-size: 1.75rem; font-weight: 800; color: #fff; }
-  .stat-label { font-size: 0.72rem; color: #484f58; margin-top: 0.15rem; }
-  .section-title { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-  .update-info { font-size: 0.7rem; color: #484f58; font-weight: 400; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0.75rem; }
-  .card { background: #161b22; border: 1px solid #21262d; border-radius: 10px; padding: 1.15rem; transition: border-color 0.2s; }
-  .card:hover { border-color: #30363d; }
-  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-  .tag { font-size: 0.62rem; font-weight: 600; padding: 0.15rem 0.5rem; border-radius: 99px; }
-  .tag-model { background: #3fb9501a; color: #3fb950; }
-  .tag-dev { background: #a371f71a; color: #a371f7; }
-  .tag-research { background: #58a6ff1a; color: #58a6ff; }
-  .tag-culture { background: #d29922; background: #d299221a; color: #d29922; }
-  .tag-policy { background: #f778581a; color: #f77858; }
-  .date { font-size: 0.68rem; color: #484f58; }
-  .card-title { font-size: 0.95rem; font-weight: 700; color: #e6edf3; margin-bottom: 0.35rem; line-height: 1.35; }
-  .summary { font-size: 0.8rem; color: #8b949e; margin-bottom: 0.6rem; }
-  .importance { font-size: 0.75rem; padding: 0.5rem 0.65rem; background: #0d1117; border-radius: 6px; color: #d29922; margin-bottom: 0.5rem; display: flex; gap: 0.35rem; }
-  .importance::before { content: '⚡'; flex-shrink: 0; }
-  .source { font-size: 0.68rem; color: #484f58; }
-  footer { padding: 1rem 2rem; border-top: 1px solid #21262d; font-size: 0.7rem; color: #30363d; text-align: center; }
+  body { font-family: 'Pretendard Variable', Pretendard, -apple-system, sans-serif; color: #333; background: #fff; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  a { color: #333; text-decoration: none; }
+  a:hover { color: #2563eb; }
+
+  .layout { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar { width: 240px; background: #fafafa; border-right: 1px solid #eee; padding: 32px 20px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .sidebar-title { font-size: 14px; font-weight: 800; color: #111; letter-spacing: 1px; margin-bottom: 4px; }
+  .sidebar-tagline { font-size: 11px; color: #999; margin-bottom: 24px; }
+
+  .nav-section { margin-bottom: 24px; }
+  .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #bbb; margin-bottom: 8px; }
+  .nav-list { list-style: none; }
+  .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: block; font-size: 13px; color: #666; padding: 4px 10px; border-radius: 4px; }
+  .nav-list a:hover { background: #f0f0f0; color: #333; }
+  .nav-list a.active { background: #e8f0fe; color: #2563eb; font-weight: 500; }
+  .nav-count { font-size: 11px; color: #ccc; float: right; }
+
+  .sidebar-footer { font-size: 11px; color: #ccc; margin-top: auto; padding-top: 16px; border-top: 1px solid #eee; }
+
+  /* Main content */
+  .main { flex: 1; padding: 32px 40px; max-width: 720px; }
+
+  .page-header { margin-bottom: 32px; }
+  .page-title { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 4px; }
+  .page-date { font-size: 13px; color: #999; }
+
+  .article { margin-bottom: 24px; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px; }
+  .article:hover { border-color: #e0e0e0; }
+  .article-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .tag { font-size: 11px; font-weight: 500; color: #2563eb; background: #eff6ff; padding: 2px 8px; border-radius: 3px; }
+  .date { font-size: 11px; color: #ccc; }
+  .article-title { font-size: 16px; font-weight: 700; color: #111; line-height: 1.4; margin-bottom: 6px; }
+  .article-summary { font-size: 14px; color: #666; margin-bottom: 10px; }
+  .importance { font-size: 13px; color: #777; background: #fafafa; padding: 8px 12px; border-left: 3px solid #e5e5e5; border-radius: 0 4px 4px 0; margin-bottom: 8px; }
+  .importance strong { font-weight: 600; color: #444; }
+  .source { font-size: 12px; color: #bbb; }
+  .source a { color: #bbb; }
+  .source a:hover { color: #2563eb; }
+
+  .main-footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #ccc; }
+  .main-footer ul { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .main-footer a { color: #ccc; }
+
+  /* Mobile: sidebar becomes top nav */
   @media (max-width: 768px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .main { padding: 1rem; }
-    .grid { grid-template-columns: 1fr; }
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; padding: 20px 16px; border-right: none; border-bottom: 1px solid #eee; }
+    .nav-section { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+    .nav-label { width: 100%; margin-bottom: 4px; }
+    .nav-list { display: flex; gap: 4px; flex-wrap: wrap; }
+    .nav-list li { margin-bottom: 0; }
+    .nav-count { display: none; }
+    .main { padding: 24px 16px; }
+    .sidebar-footer { display: none; }
   }
 </style>
 </head>
 <body>
 <div class="layout">
   <aside class="sidebar">
-    <div class="logo">AI TREND</div>
-    <div class="tagline">AI 트렌드를 한눈에</div>
-    <h3>카테고리</h3>
-    <ul class="filter-list">
-      <li class="active">전체 <span class="filter-count">5</span></li>
-      <li>모델 출시 <span class="filter-count">1</span></li>
-      <li>개발 도구 <span class="filter-count">1</span></li>
-      <li>AI 연구 <span class="filter-count">1</span></li>
-      <li>개발 문화 <span class="filter-count">1</span></li>
-      <li>규제·정책 <span class="filter-count">1</span></li>
-    </ul>
-    <h3>소스</h3>
-    <ul class="source-list">
-      <li>OpenAI Blog</li>
-      <li>Anthropic News</li>
-      <li>DeepMind Blog</li>
-      <li>GeekNews</li>
-      <li>MIT Technology Review</li>
-    </ul>
-  </aside>
-  <main class="main">
-    <div class="stats">
-      <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">오늘의 기사</div></div>
-      <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">소스</div></div>
-      <div class="stat-card"><div class="stat-value">5</div><div class="stat-label">카테고리</div></div>
-      <div class="stat-card"><div class="stat-value">156</div><div class="stat-label">이번 주 뷰</div></div>
+    <div class="sidebar-title">AI TREND</div>
+    <div class="sidebar-tagline">AI 트렌드를 한눈에</div>
+
+    <div class="nav-section">
+      <div class="nav-label">날짜</div>
+      <ul class="nav-list">
+        <li><a href="#" class="active">2026-03-27 (금) <span class="nav-count">2</span></a></li>
+        <li><a href="#">2026-03-26 (목) <span class="nav-count">2</span></a></li>
+        <li><a href="#">2026-03-25 (수) <span class="nav-count">1</span></a></li>
+      </ul>
     </div>
-    <div class="section-title">최신 기사 <span class="update-info">2026년 3월 27일 (금) · 주 3회 업데이트</span></div>
-    <div class="grid">
-      <article class="card">
-        <div class="card-top"><span class="tag tag-model">모델 출시</span><span class="date">2026-03-27</span></div>
-        <h2 class="card-title">OpenAI, GPT-5.4 공식 출시</h2>
-        <p class="summary">기존 모델 대비 추론 능력 40% 향상, 코딩 벤치마크에서 Opus 4.6을 상회</p>
-        <div class="importance">경쟁 구도 변화 — Anthropic의 독주 체제에 균열이 생길 수 있는 시점</div>
-        <div class="source"><a href="https://openai.com">OpenAI Blog</a></div>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag tag-dev">개발 도구</span><span class="date">2026-03-26</span></div>
-        <h2 class="card-title">Anthropic, Claude Code에 멀티 에이전트 기능 추가</h2>
-        <p class="summary">최대 8개 서브에이전트를 동시 실행, 대규모 리팩토링 작업에 최적화</p>
-        <div class="importance">AI 코딩 도구의 패러다임이 '대화형'에서 '오케스트레이션'으로 전환 중</div>
-        <div class="source"><a href="https://anthropic.com">Anthropic News</a></div>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag tag-research">AI 연구</span><span class="date">2026-03-26</span></div>
-        <h2 class="card-title">구글 DeepMind, AlphaFold 4 발표 — 단백질 설계까지 가능</h2>
-        <p class="summary">기존 구조 예측을 넘어 새로운 단백질을 처음부터 설계하는 AI</p>
-        <div class="importance">신약 개발 기간이 수년에서 수개월로 단축될 가능성. 바이오 산업 판도 변화</div>
-        <div class="source"><a href="https://deepmind.google">DeepMind Blog</a></div>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag tag-culture">개발 문화</span><span class="date">2026-03-27</span></div>
-        <h2 class="card-title">하루에 코딩은 4시간이 한계인 이유</h2>
-        <p class="summary">인지심리학 연구에 따르면 딥 워크 한계는 3~4시간, 실제 코딩 시간 중앙값은 52분</p>
-        <div class="importance">AI 도구로 '코딩 시간'을 늘리는 게 아니라 '코딩 밀도'를 높이는 전략이 필요</div>
-        <div class="source"><a href="https://news.hada.io">GeekNews</a></div>
-      </article>
-      <article class="card">
-        <div class="card-top"><span class="tag tag-policy">규제·정책</span><span class="date">2026-03-25</span></div>
-        <h2 class="card-title">EU AI Act 시행 1년, 실제 영향과 기업 대응 현황</h2>
-        <p class="summary">고위험 AI 시스템 등록 의무화 시작, 벌금 부과 첫 사례도 등장</p>
-        <div class="importance">한국도 AI 기본법 시행 예정 — 글로벌 규제 동향 파악이 필수적인 시점</div>
-        <div class="source"><a href="https://technologyreview.com">MIT Technology Review</a></div>
-      </article>
+
+    <div class="nav-section">
+      <div class="nav-label">카테고리</div>
+      <ul class="nav-list">
+        <li><a href="#">모델 출시 <span class="nav-count">1</span></a></li>
+        <li><a href="#">개발 도구 <span class="nav-count">1</span></a></li>
+        <li><a href="#">AI 연구 <span class="nav-count">1</span></a></li>
+        <li><a href="#">개발 문화 <span class="nav-count">1</span></a></li>
+        <li><a href="#">규제·정책 <span class="nav-count">1</span></a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      주 3회 업데이트<br>월·수·금
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+      <h1 class="page-title">오늘의 AI 트렌드</h1>
+      <p class="page-date">2026년 3월 27일 금요일 · 5건</p>
+    </div>
+
+    <article class="article">
+      <div class="article-header">
+        <span class="tag">모델 출시</span>
+        <span class="date">2026-03-27</span>
+      </div>
+      <h2 class="article-title">OpenAI, GPT-5.4 공식 출시</h2>
+      <p class="article-summary">기존 모델 대비 추론 능력 40% 향상, 코딩 벤치마크에서 Opus 4.6을 상회</p>
+      <div class="importance"><strong>왜 중요한가</strong> — 경쟁 구도 변화 — Anthropic의 독주 체제에 균열이 생길 수 있는 시점</div>
+      <div class="source">출처: <a href="https://openai.com" target="_blank">OpenAI Blog</a></div>
+    </article>
+
+    <article class="article">
+      <div class="article-header">
+        <span class="tag">개발 도구</span>
+        <span class="date">2026-03-26</span>
+      </div>
+      <h2 class="article-title">Anthropic, Claude Code에 멀티 에이전트 기능 추가</h2>
+      <p class="article-summary">최대 8개 서브에이전트를 동시 실행, 대규모 리팩토링 작업에 최적화</p>
+      <div class="importance"><strong>왜 중요한가</strong> — AI 코딩 도구의 패러다임이 '대화형'에서 '오케스트레이션'으로 전환 중</div>
+      <div class="source">출처: <a href="https://anthropic.com" target="_blank">Anthropic News</a></div>
+    </article>
+
+    <article class="article">
+      <div class="article-header">
+        <span class="tag">AI 연구</span>
+        <span class="date">2026-03-26</span>
+      </div>
+      <h2 class="article-title">구글 DeepMind, AlphaFold 4 발표 — 단백질 설계까지 가능</h2>
+      <p class="article-summary">기존 구조 예측을 넘어 새로운 단백질을 처음부터 설계하는 AI</p>
+      <div class="importance"><strong>왜 중요한가</strong> — 신약 개발 기간이 수년에서 수개월로 단축될 가능성. 바이오 산업 판도 변화</div>
+      <div class="source">출처: <a href="https://deepmind.google" target="_blank">DeepMind Blog</a></div>
+    </article>
+
+    <article class="article">
+      <div class="article-header">
+        <span class="tag">개발 문화</span>
+        <span class="date">2026-03-27</span>
+      </div>
+      <h2 class="article-title">하루에 코딩은 4시간이 한계인 이유</h2>
+      <p class="article-summary">인지심리학 연구에 따르면 딥 워크 한계는 3~4시간, 실제 코딩 시간 중앙값은 52분</p>
+      <div class="importance"><strong>왜 중요한가</strong> — AI 도구로 '코딩 시간'을 늘리는 게 아니라 '코딩 밀도'를 높이는 전략이 필요</div>
+      <div class="source">출처: <a href="https://news.hada.io" target="_blank">GeekNews</a></div>
+    </article>
+
+    <article class="article">
+      <div class="article-header">
+        <span class="tag">규제·정책</span>
+        <span class="date">2026-03-25</span>
+      </div>
+      <h2 class="article-title">EU AI Act 시행 1년, 실제 영향과 기업 대응 현황</h2>
+      <p class="article-summary">고위험 AI 시스템 등록 의무화 시작, 벌금 부과 첫 사례도 등장</p>
+      <div class="importance"><strong>왜 중요한가</strong> — 한국도 AI 기본법 시행 예정 — 글로벌 규제 동향 파악이 필수적인 시점</div>
+      <div class="source">출처: <a href="https://technologyreview.com" target="_blank">MIT Technology Review</a></div>
+    </article>
+
+    <div class="main-footer">
+      <p>AI TREND — AI 트렌드를 한눈에</p>
+      <ul>
+        <li><a href="https://openai.com">OpenAI Blog</a></li>
+        <li><a href="https://anthropic.com">Anthropic News</a></li>
+        <li><a href="https://deepmind.google">DeepMind Blog</a></li>
+        <li><a href="https://news.hada.io">GeekNews</a></li>
+        <li><a href="https://technologyreview.com">MIT Technology Review</a></li>
+      </ul>
     </div>
   </main>
 </div>
-<footer>Curated by <strong>AI TREND</strong> · Sources: OpenAI Blog · Anthropic News · DeepMind Blog · GeekNews · MIT Technology Review</footer>
 </body>
 </html>

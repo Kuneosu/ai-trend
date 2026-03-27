@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI TREND - AI 트렌드를 한눈에</title>
+<meta name="description" content="AI 트렌드를 한눈에. 월·수·금 업데이트되는 큐레이션 AI 뉴스 다이제스트.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sidebar-w: 240px;
+  --max-content: 800px;
+  --blue: #2563eb;
+  --bg: #f9fafb;
+  --white: #fff;
+}
+
+body {
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  background: var(--bg);
+  color: #111;
+  line-height: 1.5;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--white);
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: 28px 20px 16px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.sidebar-logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--blue);
+}
+
+.sidebar-tagline {
+  font-size: 13px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.sidebar-schedule {
+  font-size: 11px;
+  color: #bbb;
+  margin-top: 4px;
+}
+
+.sidebar-nav {
+  padding: 12px 0;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 9px 20px;
+  font-size: 14px;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+
+.nav-item:hover { background: #f3f4f6; color: #111; }
+.nav-item.active { background: #eff6ff; color: var(--blue); font-weight: 600; }
+
+.nav-item .nav-icon { margin-right: 8px; font-size: 15px; }
+
+.nav-divider {
+  height: 1px;
+  background: #f3f4f6;
+  margin: 8px 20px;
+}
+
+.nav-section-label {
+  padding: 8px 20px 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #bbb;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #f3f4f6;
+  font-size: 11px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* ── Main ── */
+.main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+  padding: 32px 40px;
+}
+
+.main-inner {
+  max-width: var(--max-content);
+  margin: 0 auto;
+}
+
+/* ── Header ── */
+.content-header {
+  margin-bottom: 28px;
+}
+
+.content-date {
+  font-size: 14px;
+  color: #999;
+}
+
+.content-count {
+  font-size: 13px;
+  color: #bbb;
+  margin-top: 2px;
+}
+
+/* ── Loading / Error ── */
+.loading {
+  text-align: center;
+  padding: 60px 0;
+  color: #999;
+  font-size: 14px;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 24px; height: 24px;
+  border: 2.5px solid #e5e7eb;
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-bottom: 12px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-msg {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+.error-msg span { font-size: 32px; display: block; margin-bottom: 12px; }
+
+/* ── Top News Section ── */
+.top-news-section {
+  margin-bottom: 24px;
+}
+
+.top-news-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Article Card ── */
+.article {
+  background: var(--white);
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  overflow: hidden;
+}
+
+.article:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.article.is-top {
+  border-left: 3px solid var(--blue);
+  background: #fafbff;
+}
+
+.article-header {
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  user-select: none;
+}
+
+.article-row1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-pill {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tag-모델출시, .tag-모델-출시 { background: #dbeafe; color: #1d4ed8; }
+.tag-개발도구, .tag-개발-도구 { background: #dcfce7; color: #166534; }
+.tag-AI연구, .tag-ai-연구 { background: #f3e8ff; color: #7c3aed; }
+.tag-개발문화, .tag-개발-문화 { background: #fff7ed; color: #c2410c; }
+.tag-규제정책, .tag-규제·정책 { background: #fef2f2; color: #dc2626; }
+
+.article-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.article-source, .article-date {
+  font-size: 13px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.bookmark-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 4px;
+  opacity: 0.35;
+  transition: opacity 0.15s, transform 0.15s;
+  line-height: 1;
+}
+
+.bookmark-btn:hover { opacity: 0.7; transform: scale(1.1); }
+.bookmark-btn.active { opacity: 1; color: var(--blue); }
+
+.article-summary {
+  font-size: 14px;
+  color: #666;
+  padding-left: 0;
+  line-height: 1.5;
+}
+
+/* ── Accordion Detail ── */
+.article-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.article.expanded .article-detail {
+  max-height: 1000px;
+}
+
+.detail-inner {
+  margin: 0 16px 16px;
+  padding: 16px 18px;
+  background: #f8faff;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 8px 8px 0;
+}
+
+.detail-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.detail-text {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.detail-link:hover { opacity: 0.7; }
+
+/* ── Mobile ── */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 200;
+  background: var(--white);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  width: 40px; height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 90;
+}
+
+.overlay.show { display: block; }
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+  }
+
+  .sidebar.open { transform: translateX(0); }
+
+  .main {
+    margin-left: 0;
+    padding: 64px 16px 24px;
+  }
+}
+
+/* ── Print ── */
+@media print {
+  .sidebar, .hamburger, .overlay, .bookmark-btn { display: none !important; }
+  .main { margin-left: 0; padding: 0; }
+  .article-detail { max-height: none !important; }
+  .article { break-inside: avoid; }
+}
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #bbb;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger" id="hamburger" aria-label="메뉴 열기">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">AI TREND</div>
+    <div class="sidebar-tagline">AI 트렌드를 한눈에</div>
+    <div class="sidebar-schedule">월·수·금 업데이트</div>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-filter="all">
+      <span class="nav-icon">📋</span> 전체
+    </button>
+    <button class="nav-item" data-filter="top">
+      <span class="nav-icon">⭐</span> Top News
+    </button>
+    <button class="nav-item" data-filter="bookmark">
+      <span class="nav-icon">🔖</span> 북마크
+    </button>
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">태그</div>
+    <button class="nav-item" data-filter="tag:모델 출시">
+      <span class="nav-icon" style="color:#1d4ed8">●</span> 모델 출시
+    </button>
+    <button class="nav-item" data-filter="tag:개발 도구">
+      <span class="nav-icon" style="color:#166534">●</span> 개발 도구
+    </button>
+    <button class="nav-item" data-filter="tag:AI 연구">
+      <span class="nav-icon" style="color:#7c3aed">●</span> AI 연구
+    </button>
+    <button class="nav-item" data-filter="tag:개발 문화">
+      <span class="nav-icon" style="color:#c2410c">●</span> 개발 문화
+    </button>
+    <button class="nav-item" data-filter="tag:규제·정책">
+      <span class="nav-icon" style="color:#dc2626">●</span> 규제·정책
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    출처: OpenAI, Google, TechCrunch, The Verge, Ars Technica, Reuters 외
+  </div>
+</aside>
+
+<main class="main">
+  <div class="main-inner">
+    <div class="content-header">
+      <div class="content-date" id="currentDate"></div>
+      <div class="content-count" id="articleCount"></div>
+    </div>
+    <div id="topNewsSection"></div>
+    <div id="articleList">
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        <div>기사를 불러오는 중...</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+const SUPABASE_URL = 'https://jfvbskitksjvyxrdfnap.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmdmJza2l0a3Nqdnl4cmRmbmFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NzQ2ODYsImV4cCI6MjA5MDE1MDY4Nn0.oKRNHGnAL2MDxhrQY7RABGHCsZxsa5hoj3Cu-mO_Bvo';
+const BOOKMARK_KEY = 'ai-trend-bookmarks';
+
+let allArticles = [];
+let currentFilter = 'all';
+
+// ── Bookmarks ──
+function getBookmarks() {
+  return JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+}
+
+function toggleBookmark(id) {
+  const bookmarks = getBookmarks();
+  const idx = bookmarks.indexOf(id);
+  if (idx === -1) bookmarks.push(id);
+  else bookmarks.splice(idx, 1);
+  localStorage.setItem(BOOKMARK_KEY, JSON.stringify(bookmarks));
+  render();
+}
+
+// ── Data ──
+async function loadArticles() {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/articles?select=*&order=date.desc,created_at.desc`, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`
+    }
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// ── Tag styling ──
+function getTagClass(tag) {
+  if (!tag) return '';
+  const t = tag.replace(/\s/g, '');
+  const map = {
+    '모델출시': 'tag-모델출시',
+    '개발도구': 'tag-개발도구',
+    'AI연구': 'tag-AI연구',
+    '개발문화': 'tag-개발문화',
+    '규제·정책': 'tag-규제정책',
+  };
+  return map[t] || '';
+}
+
+// ── Date format ──
+function formatDate(d) {
+  if (!d) return '';
+  const date = new Date(d);
+  return `${date.getMonth() + 1}/${date.getDate()}`;
+}
+
+function formatFullDate(d) {
+  const date = new Date(d);
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일 (${days[date.getDay()]})`;
+}
+
+// ── Filter ──
+function getFilteredArticles() {
+  const bookmarks = getBookmarks();
+  switch (currentFilter) {
+    case 'all': return allArticles;
+    case 'top': return allArticles.filter(a => a.is_top);
+    case 'bookmark': return allArticles.filter(a => bookmarks.includes(a.id));
+    default:
+      if (currentFilter.startsWith('tag:')) {
+        const tag = currentFilter.slice(4);
+        return allArticles.filter(a => a.tag === tag);
+      }
+      return allArticles;
+  }
+}
+
+// ── Render ──
+function renderArticle(article, isTopSection = false) {
+  const bookmarks = getBookmarks();
+  const isBookmarked = bookmarks.includes(article.id);
+  const tagClass = getTagClass(article.tag);
+
+  return `
+    <div class="article ${article.is_top && isTopSection ? 'is-top' : ''}" data-id="${article.id}">
+      <div class="article-header" onclick="toggleAccordion(this)">
+        <div class="article-row1">
+          ${article.tag ? `<span class="tag-pill ${tagClass}">${article.tag}</span>` : ''}
+          <span class="article-title">${article.is_top && isTopSection ? '⭐ ' : ''}${escapeHtml(article.title)}</span>
+          <span class="article-meta">
+            <span class="article-source">${escapeHtml(article.source || '')}</span>
+            <span class="article-date">${formatDate(article.date)}</span>
+            <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation(); toggleBookmark(${article.id})" title="북마크">🔖</button>
+          </span>
+        </div>
+        <div class="article-summary">${escapeHtml(article.summary || '')}</div>
+      </div>
+      <div class="article-detail">
+        <div class="detail-inner">
+          <div class="detail-label">왜 중요한가</div>
+          <div class="detail-text">${escapeHtml(article.importance || '정보 없음')}</div>
+          ${article.source_url ? `<a class="detail-link" href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">원문 보기 →</a>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+function render() {
+  const articles = getFilteredArticles();
+  const topSection = document.getElementById('topNewsSection');
+  const listEl = document.getElementById('articleList');
+  const countEl = document.getElementById('articleCount');
+
+  countEl.textContent = `총 ${articles.length}건`;
+
+  // Top news (only on "all" filter)
+  if (currentFilter === 'all') {
+    const topArticles = articles.filter(a => a.is_top);
+    if (topArticles.length > 0) {
+      topSection.innerHTML = `
+        <div class="top-news-section">
+          <div class="top-news-label">⭐ Top News</div>
+          ${topArticles.map(a => renderArticle(a, true)).join('')}
+        </div>`;
+    } else {
+      topSection.innerHTML = '';
+    }
+    // Regular list excludes top articles when showing "all"
+    const regular = articles.filter(a => !a.is_top);
+    listEl.innerHTML = regular.length
+      ? regular.map(a => renderArticle(a)).join('')
+      : (allArticles.length ? '' : '<div class="empty-state">기사가 없습니다</div>');
+  } else {
+    topSection.innerHTML = '';
+    listEl.innerHTML = articles.length
+      ? articles.map(a => renderArticle(a)).join('')
+      : `<div class="empty-state">${currentFilter === 'bookmark' ? '북마크한 기사가 없습니다' : '해당 기사가 없습니다'}</div>`;
+  }
+}
+
+function escapeHtml(text) {
+  const el = document.createElement('span');
+  el.textContent = text;
+  return el.innerHTML;
+}
+
+// ── Accordion ──
+function toggleAccordion(header) {
+  const article = header.closest('.article');
+  article.classList.toggle('expanded');
+}
+
+// ── Sidebar nav ──
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    render();
+    // Close mobile sidebar
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  });
+});
+
+// ── Mobile hamburger ──
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+});
+
+document.getElementById('overlay').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+});
+
+// ── Init ──
+(async () => {
+  document.getElementById('currentDate').textContent = formatFullDate(new Date());
+
+  try {
+    allArticles = await loadArticles();
+    console.log('Loaded articles:', allArticles.length, allArticles);
+    render();
+  } catch (err) {
+    console.error('Failed to load articles:', err);
+    document.getElementById('articleList').innerHTML = `
+      <div class="error-msg">
+        <span>😢</span>
+        기사를 불러오지 못했습니다.<br>
+        <small style="color:#ccc">잠시 후 다시 시도해 주세요.</small>
+      </div>`;
+  }
+})();
+</script>
+</body>
+</html>
