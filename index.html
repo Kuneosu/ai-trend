@@ -152,8 +152,8 @@ a:hover { color: #2563eb; }
     <div class="nav-section">
       <div class="nav-label">필터</div>
       <ul class="nav-list">
-        <li><button data-filter="top"><i class="lucide-star" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Top News</button></li>
-        <li><button data-filter="bookmark"><i class="lucide-bookmark" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>저장한 글</button></li>
+        <li><button data-filter="top"><i class="icon-star" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Top News</button></li>
+        <li><button data-filter="bookmark"><i class="icon-bookmark" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>저장한 글</button></li>
       </ul>
     </div>
 
@@ -167,7 +167,7 @@ a:hover { color: #2563eb; }
     <div class="sidebar-footer">
       <div>v1.0.0</div>
       <div style="margin-top:4px">© 2026 AI TREND</div>
-      <a href="https://github.com/Kuneosu/ai-trend" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;color:#aaa;font-size:11px"><i class="lucide-github" style="font-size:12px"></i>GitHub</a>
+      <a href="https://github.com/Kuneosu/ai-trend" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-top:6px;color:#aaa;font-size:11px"><i class="icon-github" style="font-size:12px"></i>GitHub</a>
     </div>
   </aside>
 
@@ -485,12 +485,12 @@ function renderArticle(article) {
     <div class="article ${isTop ? 'is-top' : ''}" data-id="${article.id}">
       <div class="article-header">
         ${article.tag ? `<span class="tag">${escapeHtml(article.tag)}</span>` : ''}
-        ${isTop ? `<span class="top-badge"><i class="lucide-star" style="font-size:10px;vertical-align:0px;margin-right:2px"></i>TOP</span>` : ''}
+        ${isTop ? `<span class="top-badge"><i class="icon-star" style="font-size:10px;vertical-align:0px;margin-right:2px"></i>TOP</span>` : ''}
         <span class="date">${article.date || ''}</span>
       </div>
       <div class="article-title-row">
         <h2 class="article-title">${escapeHtml(article.title)}</h2>
-        <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation();toggleBookmark(${article.id})" title="저장"><i class="lucide-bookmark" style="font-size:14px;vertical-align:-2px"></i></button>
+        <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation();toggleBookmark(${article.id})" title="저장"><i class="icon-bookmark" style="font-size:14px;vertical-align:-2px"></i></button>
       </div>
       <p class="article-summary">${escapeHtml(article.summary || '')}</p>
       <div class="article-detail">
@@ -555,7 +555,7 @@ function render() {
     const topArticles = articles.filter(a => a.is_top);
     const regularArticles = articles.filter(a => !a.is_top);
     if (topArticles.length > 0) {
-      html += `<div class="section-label"><i class="lucide-star" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Top News</div>`;
+      html += `<div class="section-label"><i class="icon-star" style="font-size:13px;vertical-align:-1px;margin-right:4px"></i>Top News</div>`;
       html += topArticles.map(a => renderArticle(a)).join('');
       if (regularArticles.length > 0) {
         html += `<div class="section-label" style="margin-top:32px">전체 뉴스</div>`;
