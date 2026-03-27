@@ -49,6 +49,8 @@ a:hover { color: #2563eb; }
 .page-header { margin-bottom: 32px; }
 .page-title { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 4px; }
 .page-date { font-size: 14px; color: #666; }
+.page-title-date { font-size: 22px; font-weight: 700; color: #111; }
+.page-sub { font-size: 13px; color: #999; }
 
 /* ── Article card ── */
 .article { margin-bottom: 24px; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px; background: #fff; }
@@ -506,15 +508,24 @@ function render() {
   dateEl.style.display = 'block';
 
   const articles = getFilteredArticles();
-  dateEl.textContent = `${articles.length}건`;
-
-  // Show collection period if filtering by specific date
   if (currentFilter.startsWith('date:')) {
     const pd = currentFilter.slice(5);
     const period = getCollectionPeriod(pd);
-    dateEl.textContent = `${formatShortDate(pd)} · ${articles.length}건 · 수집 기간: ${period}`;
+    dateEl.innerHTML = `<span class="page-title-date">${formatShortDate(pd)}</span> — ${articles.length}건<br><span class="page-sub">수집 기간: ${period}</span>`;
   } else if (currentFilter === 'all') {
-    dateEl.textContent = `전체 · ${articles.length}건`;
+    dateEl.innerHTML = `<span class="page-title-date">전체</span> — ${articles.length}건`;
+  } else if (currentFilter.startsWith('week:')) {
+    const wk = currentFilter.slice(5);
+    const parts = wk.split('-W');
+    dateEl.innerHTML = `<span class="page-title-date">${parts[0]}년 ${parts[1]}주차</span> — ${articles.length}건`;
+  } else if (currentFilter === 'top') {
+    dateEl.innerHTML = `<span class="page-title-date">Top News</span> — ${articles.length}건`;
+  } else if (currentFilter === 'bookmark') {
+    dateEl.innerHTML = `<span class="page-title-date">저장한 글</span> — ${articles.length}건`;
+  } else if (currentFilter.startsWith('tag:')) {
+    dateEl.innerHTML = `<span class="page-title-date">${currentFilter.slice(4)}</span> — ${articles.length}건`;
+  } else {
+    dateEl.innerHTML = `${articles.length}건`;
   }
 
   if (articles.length === 0) {
