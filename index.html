@@ -514,22 +514,23 @@ function getFilteredArticles() {
 }
 
 // ── Render article ──
-function renderArticle(article) {
+function renderArticle(article, overrideRank) {
   const bookmarks = getBookmarks();
   const isBookmarked = bookmarks.includes(article.id);
   const isTop = article.is_top;
   const publishDate = getArticlePublishDate(article);
 
-  const rankClass = article.rank && article.rank <= 3 ? `rank-${article.rank}-area` : '';
-  const isTop3 = article.rank && article.rank <= 3;
+  const displayRank = overrideRank || article.rank;
+  const rankClass = displayRank && displayRank <= 3 ? `rank-${displayRank}-area` : '';
+  const isTop3 = displayRank && displayRank <= 3;
   const rankIcons = { 1: 'icon-trophy', 2: 'icon-award', 3: 'icon-award' };
 
   return `
     <div class="article ${isTop ? 'is-top' : ''}" data-id="${article.id}">
       <div class="rank-area ${rankClass}">
-        ${article.rank ? (isTop3 ?
-          `<div class="rank-icon"><i class="${rankIcons[article.rank]}" style="font-size:18px"></i></div>` :
-          `<span class="rank-num">${article.rank}</span>`) : ''}
+        ${displayRank ? (isTop3 ?
+          `<div class="rank-icon"><i class="${rankIcons[displayRank]}" style="font-size:18px"></i></div>` :
+          `<span class="rank-num">${displayRank}</span>`) : ''}
         ${article.score ? `<span class="rank-score">${article.score}점</span>` : ''}
       </div>
       <div class="article-content">
@@ -601,10 +602,26 @@ function render() {
   }
 
   let html = '';
-  html = articles.map(a => renderArticle(a)).join('');
+  const isDateView = currentFilter.startsWith("date:");
+  const isWeekView = currentFilter.startsWith("week:");
+  const showRanks = isDateView || isWeekView;
+
+  if (isWeekView) {
+    // Week view: re-rank by score across all articles in the week
+    const sorted = [...articles].sort((a, b) => (b.score || 0) - (a.score || 0));
+    sorted.forEach((a, i) => { a._weekRank = i + 1; });
+    html = sorted.map(a => renderArticle(a, a._weekRank)).join('');
+  } else if (isDateView) {
+    // Date view: use existing rank, sort by rank
+    const sorted = [...articles].sort((a, b) => (a.rank || 99) - (b.rank || 99));
+    html = sorted.map(a => renderArticle(a)).join('');
+  } else {
+    // All/tag/bookmark/top: sort by date desc, no rank
+    const sorted = [...articles].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+    html = sorted.map(a => renderArticle(a)).join('');
+  }
+
   articleList.innerHTML = html;
-  // Show ranks only in date/week views
-  const showRanks = currentFilter.startsWith("date:") || currentFilter.startsWith("week:");
   articleList.classList.toggle("show-ranks", showRanks);
 }
 
