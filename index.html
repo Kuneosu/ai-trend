@@ -109,9 +109,10 @@ a:hover { color: #2563eb; }
 .importance ul li { position: relative; padding-left: 14px; margin-bottom: 4px; line-height: 1.7; }
 .importance ul li::before { content: '·'; position: absolute; left: 0; font-weight: 700; color: #2563eb; }
 
-.source { font-size: 13px; color: #888; margin-top: 8px; }
-.source a { color: #666; }
-.source a:hover { color: #2563eb; }
+.source { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.source-btn { display: inline-flex; align-items: center; gap: 4px; padding: 5px 12px; font-size: 12px; font-weight: 500; border-radius: 6px; border: 1px solid #e0e0e0; background: #fafafa; color: #555; text-decoration: none; transition: all 0.15s; cursor: pointer; }
+.source-btn:hover { background: #f0f0f0; border-color: #ccc; color: #333; }
+.source-btn i { font-size: 12px; }
 
 /* ── About page ── */
 .about-page { max-width: 640px; }
@@ -547,8 +548,8 @@ function renderArticle(article, overrideRank) {
       <div class="article-detail">
         <div class="importance"><strong>왜 중요한가</strong>${formatImportance(article.importance || '정보 없음')}</div>
         <div class="source">
-          ${article.source_url ? `출처: <a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener">${escapeHtml(article.source || '원문')} →</a>` : (article.source ? `출처: ${escapeHtml(article.source)}` : '')}
-          ${article.via_url ? ` · <a href="${escapeHtml(article.via_url)}" target="_blank" rel="noopener">via ${article.via_url.includes('hada.io') ? 'GeekNews' : article.via_url.includes('news.ycombinator') ? 'HackerNews' : '경유'} →</a>` : ''}
+          ${article.source_url ? `<a href="${escapeHtml(article.source_url)}" target="_blank" rel="noopener" class="source-btn"><i class="icon-external-link"></i>${escapeHtml(article.source || '원문')}</a>` : ''}
+          ${article.via_url ? `<a href="${escapeHtml(article.via_url)}" target="_blank" rel="noopener" class="source-btn"><i class="icon-message-circle"></i>${article.via_url.includes('hada.io') ? 'GeekNews 댓글' : article.via_url.includes('ycombinator') ? 'HN 댓글' : '경유'}</a>` : ''}
         </div>
       </div>
       </div>
