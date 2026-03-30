@@ -134,6 +134,13 @@ a:hover { color: #2563eb; }
 .empty-state { text-align: center; padding: 48px 20px; color: #bbb; font-size: 14px; }
 .section-label { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0; }
 
+/* Timeline group */
+.timeline-group { position: relative; padding-left: 24px; margin-bottom: 8px; }
+.timeline-group::before { content: ''; position: absolute; left: 6px; top: 28px; bottom: 8px; width: 2px; background: #e8e8e8; }
+.timeline-date { position: relative; font-size: 13px; font-weight: 600; color: #888; margin-bottom: 12px; padding: 4px 0; }
+.timeline-date::before { content: ''; position: absolute; left: -22px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: #2563eb; border: 2px solid #fff; box-shadow: 0 0 0 2px #e8e8e8; }
+.timeline-items { }
+
 /* ── Footer ── */
 .main-footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #ccc; }
 
@@ -646,9 +653,27 @@ function render() {
     const sorted = [...articles].sort((a, b) => (a.rank || 99) - (b.rank || 99));
     html = sorted.map(a => renderArticle(a)).join('');
   } else {
-    // All/tag/bookmark/top: sort by date desc, no rank
-    const sorted = [...articles].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-    html = sorted.map(a => renderArticle(a)).join('');
+    // All/tag/bookmark/top: group by publish_date with timeline
+    const sorted = [...articles].sort((a, b) => {
+      const pdCmp = (b.publish_date || b.date || '').localeCompare(a.publish_date || a.date || '');
+      if (pdCmp !== 0) return pdCmp;
+      return (a.rank || 99) - (b.rank || 99);
+    });
+    // Group by publish_date
+    const groups = {};
+    sorted.forEach(a => {
+      const pd = a.publish_date || a.date || 'unknown';
+      if (!groups[pd]) groups[pd] = [];
+      groups[pd].push(a);
+    });
+    const groupKeys = Object.keys(groups).sort().reverse();
+    groupKeys.forEach((pd, gi) => {
+      html += `<div class="timeline-group">`;
+      html += `<div class="timeline-date">${formatShortDate(pd)}</div>`;
+      html += `<div class="timeline-items">`;
+      html += groups[pd].map(a => renderArticle(a)).join('');
+      html += `</div></div>`;
+    });
   }
 
   articleList.innerHTML = html;
