@@ -626,13 +626,16 @@ function render() {
   articleList.classList.toggle("show-ranks", showRanks);
 }
 
-// ── Accordion — card click ──
+// ── Accordion — header click only (not detail area) ──
 document.addEventListener('click', function(e) {
   const article = e.target.closest('.article');
   if (!article) return;
-  // Don't toggle if clicking bookmark or link
-  if (e.target.closest('.bookmark-btn, a')) return;
-  article.classList.toggle('expanded');
+  // Don't toggle if clicking bookmark, link, or inside expanded detail
+  if (e.target.closest('.bookmark-btn, a, .article-detail')) return;
+  // Only toggle if clicking header area (tag, title, summary, rank)
+  if (e.target.closest('.article-header, .article-title-row, .article-summary, .rank-area')) {
+    article.classList.toggle('expanded');
+  }
 });
 
 // ── Mobile hamburger ──
