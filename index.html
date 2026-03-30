@@ -38,6 +38,9 @@ a:hover { color: #2563eb; }
 .week-header:hover { background: #f0f0f0; color: #333; }
 .week-header.active { background: #e8f0fe; color: #2563eb; }
 
+.week-collapsed { display: none !important; }
+.old-week { display: none; }
+
 .sidebar-footer { font-size: 11px; color: #ccc; margin-top: auto; padding-top: 16px; border-top: 1px solid #eee; }
 
 /* ── TOP badge ── */
@@ -424,20 +427,46 @@ function buildSidebarNav() {
     weekGroups[weekKey].dates.push(d);
   });
 
+  const MAX_WEEKS = 4;
+  const weekKeys = Object.keys(weekGroups).sort().reverse();
+
   let dateHtml = `<li><button class="${currentFilter === 'all' ? 'active' : ''}" data-filter="all">전체 <span class="nav-count">${allArticles.length}</span></button></li>`;
 
-  Object.keys(weekGroups).sort().reverse().forEach(weekKey => {
+  weekKeys.forEach((weekKey, idx) => {
     const group = weekGroups[weekKey];
     const weekFilterKey = `week:${weekKey}`;
     const weekCount = group.dates.reduce((sum, d) => sum + pubDateCounts[d], 0);
-    dateHtml += `<li><button class="week-header ${currentFilter === weekFilterKey ? 'active' : ''}" data-filter="${weekFilterKey}">${group.year}년 ${group.week}주차 <span class="nav-count">${weekCount}</span></button></li>`;
+    // Check if this week has an active date filter inside
+    const hasActiveChild = group.dates.some(d => currentFilter === `date:${d}`);
+    const isWeekActive = currentFilter === weekFilterKey;
+    const isExpanded = hasActiveChild || isWeekActive || idx === 0; // Latest week expanded by default
+    const hiddenClass = idx >= MAX_WEEKS ? ' old-week' : '';
+
+    dateHtml += `<li class="${hiddenClass}"><button class="week-header ${isWeekActive ? 'active' : ''}" data-filter="${weekFilterKey}" data-week-toggle="${weekKey}">${group.year}년 ${group.week}주차 <span class="nav-count">${weekCount}</span></button></li>`;
 
     group.dates.forEach(d => {
       const filterKey = `date:${d}`;
-      dateHtml += `<li><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}" style="padding-left:20px;font-size:12px">${formatPublishDateShort(d)} <span class="nav-count">${pubDateCounts[d]}</span></button></li>`;
+      dateHtml += `<li class="week-date ${isExpanded ? '' : 'week-collapsed'} ${hiddenClass}" data-week="${weekKey}"><button class="${currentFilter === filterKey ? 'active' : ''}" data-filter="${filterKey}" style="padding-left:20px;font-size:12px">${formatPublishDateShort(d)} <span class="nav-count">${pubDateCounts[d]}</span></button></li>`;
     });
   });
+
+  if (weekKeys.length > MAX_WEEKS) {
+    dateHtml += `<li><button class="show-more-weeks" onclick="document.querySelectorAll('.old-week').forEach(el=>el.classList.remove('old-week'));this.parentElement.remove();" style="padding:4px 10px;font-size:11px;color:#2563eb;cursor:pointer;border:none;background:none;font-family:inherit">이전 주차 더보기</button></li>`;
+  }
+
   dateNav.innerHTML = dateHtml;
+
+  // Week toggle click
+  dateNav.querySelectorAll('[data-week-toggle]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // If it's a filter click (handled below), let it filter
+      // But also toggle the dates visibility
+      const wk = btn.dataset.weekToggle;
+      const dates = dateNav.querySelectorAll(`[data-week="${wk}"]`);
+      const isCollapsed = dates[0] && dates[0].classList.contains('week-collapsed');
+      dates.forEach(el => el.classList.toggle('week-collapsed', !isCollapsed));
+    });
+  });
 
   // Tag nav - use fixed categories, only show ones with articles
   const tagNav = document.getElementById('tagNav');
